@@ -1,0 +1,24 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/test1
+  application:
+    name: user-service
+server:
+  port: 8030
+keycloak:
+  server-url: http://localhost:8080
+  realm: test1
+  client-id: admin-cli
+  username: rafik
+  password: 123
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+

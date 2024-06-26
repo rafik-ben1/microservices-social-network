@@ -1,0 +1,23 @@
+services:
+  postgresdb:
+    image: postgres:latest
+    container_name: postsdb
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=posts
+  mysqldb:
+    image: mysql
+    container_name: friendsdb
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=friends_db
+      - MYSQL_USER=rafik
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_PASSWORD=password
+
