@@ -25,6 +25,8 @@ public class Post {
 
     private String content;
 
+    private String image;
+
     private String author;
 
     private int likedBy;

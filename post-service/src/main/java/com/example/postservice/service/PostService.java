@@ -16,9 +16,10 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserClient userClient;
     private final PostMapper mapper;
-    public Post createPost(CreatePostDto dto, String userId)
+    public Post createPost(CreatePostDto dto, String userId, String image)
     {
         Post post = mapper.mapToPost(dto,userId);
+        post.setImage(image);
         return postRepository.save(post);
     }
 
