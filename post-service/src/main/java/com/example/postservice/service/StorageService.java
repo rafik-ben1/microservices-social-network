@@ -32,6 +32,6 @@ public class StorageService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return "http://localhost:8040/uploads/" +  fileName;
+        return "http://localhost:8222/uploads/posts/" +  fileName;
     }
 }

@@ -1,6 +1,4 @@
 package com.example.postservice.controller;
-
-import com.example.postservice.controller.service.StorageService;
 import com.example.postservice.dto.CreatePostDto;
 import com.example.postservice.models.Post;
 import com.example.postservice.service.PostService;
