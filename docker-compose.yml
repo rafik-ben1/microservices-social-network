@@ -20,4 +20,13 @@ services:
       - MYSQL_USER=rafik
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_PASSWORD=password
-
+  mongodb:
+    image: mongo:7.0.5
+    container_name: chatsdb
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    environment:
+       MONGO_INITDB_ROOT_USERNAME: admin
+       MONGO_INITDB_ROOT_PASSWORD: password
+       MONGO_INITDB0_DATABASE: chats_db
