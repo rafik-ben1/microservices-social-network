@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +16,8 @@ import java.util.List;
 public class Chat {
     @Id
     private String id;
-
-    private boolean isGroup;
-
+    private LocalDateTime lastSent;
+    private String lastMessage;
     private List<String> participants = new ArrayList<>();
-
-    private List<Message> messages = new ArrayList<>();
 
 }
