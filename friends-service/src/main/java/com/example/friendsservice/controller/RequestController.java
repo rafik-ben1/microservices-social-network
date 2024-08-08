@@ -16,8 +16,8 @@ public class RequestController {
     private final RequestService requestService;
 
     @PostMapping("/{sendTo}")
-    ResponseEntity<?> addFriend(@RequestHeader("user") String sender, @PathVariable("sendTo") String to ){
-        requestService.addFriend(sender,to);
+    ResponseEntity<?> sendFriendRequest(@RequestHeader("user") String sender, @PathVariable("sendTo") String to ){
+        requestService.sendFriendRequest(sender,to);
         return ResponseEntity.accepted().build();
     }
 
@@ -30,6 +30,10 @@ public class RequestController {
     @GetMapping("/recieved")
     Page<RecievedRequestResponse> getRecieved(@RequestHeader("user") String user, Pageable pageable){
      return requestService.getRecievedRequest(user, pageable);
+    }
+    @PostMapping("/recieved/{requestId}")
+    public void acceptRequest(@PathVariable int requestId){
+
     }
 
     @GetMapping("/sent")

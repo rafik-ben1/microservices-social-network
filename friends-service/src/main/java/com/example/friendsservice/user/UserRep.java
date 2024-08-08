@@ -1,4 +1,4 @@
-package com.example.friendsservice.HttpClient.user;
+package com.example.friendsservice.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

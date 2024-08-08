@@ -16,8 +16,9 @@ import java.util.List;
 public class Chat {
     @Id
     private String id;
-    private LocalDateTime lastSent;
-    private String lastMessage;
+    private Message lastMessage;
+    private String chatName;
+    private Boolean isGroupChat;
     private List<String> participants = new ArrayList<>();
 
 }

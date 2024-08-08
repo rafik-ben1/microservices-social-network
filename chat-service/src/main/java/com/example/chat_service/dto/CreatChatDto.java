@@ -9,4 +9,6 @@ import java.util.List;
 @Data
 public class CreatChatDto {
     private List<String> participant;
+    private Boolean isGroupChat;
+    private String chatName;
 }

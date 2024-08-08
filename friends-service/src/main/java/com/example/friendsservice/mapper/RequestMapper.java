@@ -1,6 +1,6 @@
 package com.example.friendsservice.mapper;
 
-import com.example.friendsservice.HttpClient.user.UserRep;
+import com.example.friendsservice.user.UserRep;
 import com.example.friendsservice.dto.RecievedRequestResponse;
 import com.example.friendsservice.dto.SentRequestResponse;
 import com.example.friendsservice.model.Request;

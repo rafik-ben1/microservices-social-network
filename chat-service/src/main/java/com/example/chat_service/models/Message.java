@@ -25,11 +25,8 @@ public class Message {
 
     private String content;
     private String chatId;
-
-    private MessageType type;
-
-    @Indexed(unique = false )
     private List<String> seenBy = new ArrayList<>();
+    private MessageType type;
 
     @CreatedDate
     private LocalDateTime sentAt;

@@ -33,7 +33,7 @@ public class Security {
       });
       http.authorizeExchange(e -> {
           e
-                  .pathMatchers("/ws-demo/**")
+                  .pathMatchers("/ws") // to do : cpnfigure websocket security
                   .permitAll()
                   .anyExchange()
                   .authenticated();

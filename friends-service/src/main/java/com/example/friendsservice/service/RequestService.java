@@ -1,7 +1,10 @@
 package com.example.friendsservice.service;
 
-import com.example.friendsservice.HttpClient.user.UserClient;
-import com.example.friendsservice.HttpClient.user.UserRep;
+import com.example.friendsservice.chat.ChatClient;
+import com.example.friendsservice.chat.CreateChatRequest;
+import com.example.friendsservice.model.Friendship;
+import com.example.friendsservice.user.UserClient;
+import com.example.friendsservice.user.UserRep;
 import com.example.friendsservice.dto.RecievedRequestResponse;
 import com.example.friendsservice.dto.SentRequestResponse;
 import com.example.friendsservice.mapper.RequestMapper;
@@ -12,19 +15,34 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RequestService {
     private final RequestRepository requestRepository;
     private final UserClient userClient;
     private final RequestMapper mapper;
-
-    public void addFriend(String from , String to){
+    private final ChatClient chatClient;
+    public void sendFriendRequest(String from , String to){
         Request request = Request.builder()
                                  .sentBy(from)
                                  .sentTo(to)
                                  .build();
         requestRepository.save(request);
+    }
+
+    public void acceptRequest(int requestId){
+        Request request = requestRepository.findById(requestId).get();
+        Friendship friendship = Friendship.builder()
+                .users(List.of(request.getSentBy(),request.getSentTo()))
+                .build();
+        CreateChatRequest createChatRequest = CreateChatRequest.builder()
+                .participant(friendship.getUsers())
+                .build();
+        chatClient.createChat(createChatRequest);
+
     }
     public void removeRequest(int id){
         requestRepository.deleteById(id);

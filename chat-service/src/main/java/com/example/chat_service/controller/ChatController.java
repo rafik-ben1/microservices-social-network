@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api/v1/chats")
 @RequiredArgsConstructor
@@ -23,9 +24,14 @@ public class ChatController {
         return service.getMyChats(pageable,user);
     }
 
+
     @DeleteMapping("/{chatId}")
     void deleteChat(@PathVariable("chatId") String chatId, @RequestHeader("user") String user  ){
-
+     service.deleteChat(chatId,user);
+    }
+    @PostMapping("/{groupId}")
+    void addToGroupChat(@PathVariable String groupId, @RequestHeader("user") String userId , @RequestBody String addedUser ){
+           service.addUserToGroup(groupId,userId,addedUser);
     }
 
 }

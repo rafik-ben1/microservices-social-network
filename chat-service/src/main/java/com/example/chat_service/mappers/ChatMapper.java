@@ -13,15 +13,19 @@ import java.util.List;
 @Service
 public class ChatMapper {
     public Chat mapToEntity(CreatChatDto dto){
-        return Chat.builder()
-                .participants(dto.getParticipant())
-                .lastSent(LocalDateTime.now())
+       var chat = Chat.builder()
+                .isGroupChat(dto.getIsGroupChat())
                 .build();
+       chat.getParticipants().addAll(dto.getParticipant());
+       return chat;
     }
     public ChatResponseDto mapToResponse(Chat chat , List<UserRep> participants){
+        UserRep other = participants.get(0);
+        String chatName = chat.getIsGroupChat() ? chat.getChatName() : other.getFirstname() + " " +other.getLastname();
         return ChatResponseDto.builder()
                 .id(chat.getId())
-                .chatName(participants.getFirst().getFirstname() + " " + participants.getFirst().getLastname())
+                .chatName(chatName)
+                .isGroupChat(chat.getIsGroupChat())
                 .lastMessage(chat.getLastMessage())
                 .build();
     }

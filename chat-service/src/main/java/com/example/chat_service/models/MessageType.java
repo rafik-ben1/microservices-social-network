@@ -4,6 +4,4 @@ public enum MessageType {
     SYSTEM,
     IMAGE,
     NORMAL,
-    ADDING,
-    LEAVING
 }

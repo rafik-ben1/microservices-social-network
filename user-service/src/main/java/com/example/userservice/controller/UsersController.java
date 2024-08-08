@@ -20,14 +20,9 @@ public class UsersController {
     public List<UserResponseDto> getUsers(@QueryParam("search") String search ) {
     return userService.searchUsers(search);
    }
-
    @GetMapping("/{id}")
    public UserResponseDto findOne(@PathVariable("id") String id ){
        return userService.findOne(id);
-   }
-   @PostMapping
-    public Response createUser(@RequestBody UserCreationDto user){
-        return userService.create(user);
    }
 
 }

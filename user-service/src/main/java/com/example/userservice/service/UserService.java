@@ -1,11 +1,8 @@
 package com.example.userservice.service;
-import com.example.userservice.dto.UserCreationDto;
 import com.example.userservice.dto.UserResponseDto;
 import com.example.userservice.mapper.UserRepMapper;
-import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.resource.UserResource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,11 +21,6 @@ public class UserService {
              .stream()
              .map(mapper::mapToUserResponseDto)
              .collect(Collectors.toList());
-    }
-    public Response create(UserCreationDto dto){
-        return keycloak.realm(realm)
-                .users()
-                .create(mapper.mapFromUserCreationDto(dto));
     }
 
     public UserResponseDto findOne(String id){

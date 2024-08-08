@@ -12,7 +12,8 @@ import java.util.List;
 @Data
 public class ChatResponseDto {
     private String id;
-    private String lastMessage;
+    private Message lastMessage;
     private String chatName;
+    private Boolean isGroupChat;
     private List<UserRep> participants;
 }

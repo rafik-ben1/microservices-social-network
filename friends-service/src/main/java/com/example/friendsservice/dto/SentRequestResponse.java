@@ -1,6 +1,6 @@
 package com.example.friendsservice.dto;
 
-import com.example.friendsservice.HttpClient.user.UserRep;
+import com.example.friendsservice.user.UserRep;
 import lombok.*;
 
 import java.time.LocalDateTime;
