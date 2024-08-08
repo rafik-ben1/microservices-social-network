@@ -1,12 +1,13 @@
 package com.example.userservice.controller;
-import com.example.userservice.dto.UserCreationDto;
+
 import com.example.userservice.dto.UserResponseDto;
 import com.example.userservice.service.UserService;
 import jakarta.ws.rs.QueryParam;
-import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.admin.client.resource.UserResource;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
