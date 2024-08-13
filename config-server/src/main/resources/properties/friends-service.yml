@@ -10,6 +10,13 @@ spring:
 
   application:
     name: friends-service
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: friendRequest:com.example.friendsservice.kafka.FriendRequestEvent
 server:
   port: 8050
 eureka:
