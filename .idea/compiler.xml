@@ -10,10 +10,11 @@
         <module name="config-server" />
         <module name="friends-service" />
         <module name="post-service" />
+        <module name="eureka" />
         <module name="api-gateway" />
         <module name="chat-service" />
         <module name="user-service" />
-        <module name="discovery-service" />
+        <module name="notification-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,9 +26,10 @@
       <module name="api-gateway" options="-parameters" />
       <module name="chat-service" options="-parameters" />
       <module name="config-server" options="-parameters" />
-      <module name="discovery-service" options="-parameters" />
+      <module name="eureka" options="-parameters" />
       <module name="friends-service" options="-parameters" />
       <module name="keycloak-users-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
       <module name="post-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
