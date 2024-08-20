@@ -1,5 +1,6 @@
 package com.example.postservice.exceptions;
 
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -16,17 +17,30 @@ import java.util.HashMap;
 @RestControllerAdvice
 public class GlobalHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> validationErrorHandler(MethodArgumentNotValidException ex){
-       var response = new HashMap<String,Object>();
+    public ResponseEntity<ErrorResponse> validationErrorHandler(MethodArgumentNotValidException ex){
        var errors = new ArrayList<String>();
-       ex.getBindingResult().getAllErrors().forEach(error -> {
-           errors.add(error.getDefaultMessage());
-       }    );
-       response.put("StatusCode", HttpStatus.BAD_REQUEST.value());
-       response.put("TimeStamp", Instant.now());
-       response.put("errors",errors);
+
+      var msg = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+      ErrorResponse response = new ErrorResponse(
+              Instant.now(),
+              HttpStatus.BAD_REQUEST,
+              HttpStatus.BAD_REQUEST.value(),
+              msg
+      );
         return ResponseEntity
                 .badRequest()
+                .body(response);
+    }
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handelNotFOund(NotFoundException ex){
+        ErrorResponse response = new ErrorResponse(
+                Instant.now(),
+                HttpStatus.NOT_FOUND,
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage()
+        );
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND.value())
                 .body(response);
     }
 }
