@@ -10,6 +10,7 @@ import com.example.postservice.models.Comment;
 import com.example.postservice.models.Post;
 import com.example.postservice.repository.CommentRepository;
 import com.example.postservice.repository.PostRepository;
+import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,9 +31,10 @@ public class CommentService {
     private final KafkaTemplate<String, NewCommentEvent> kafkaTemplate;
     public CommentResponseDto createComment(CreateCommentDto dto , String authorId , int postId){
         UserRep user = userCLient.findUserById(authorId);
-        Comment commentToSave = mapper.mapFromCreateToEntity(dto,authorId , postId);
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()-> new NotFoundException("post not found"));
+        Comment commentToSave = mapper.mapFromCreateToEntity(dto,authorId , post);
         Comment SavedComment = commentRepository.save(commentToSave);
-        Post post = postRepository.findById(postId).get();
         String commentAuthorUsername = user.getFirstname() + " " + user.getLastname();
         sendNewCommentEvent(commentAuthorUsername,post.getAuthor(),SavedComment.getContent());
         return mapper.mapFromEntityToResponse(SavedComment, user);

@@ -29,7 +29,7 @@ public class LikeService {
         if(possiblyLiked.isEmpty()){
             Likes like = Likes.builder()
                     .author(userId)
-                    .postId(postId)
+                    .post(post)
                     .build();
             likeRepository.save(like);
             post.setLikedBy(post.getLikedBy() + 1);
@@ -37,7 +37,6 @@ public class LikeService {
         }
         likeRepository.deleteById(possiblyLiked.get().getId());
         post.setLikedBy(post.getLikedBy() - 1);
-        return;
     }
 
     public Page<LikeResponse> getPostLikes(int postId, Pageable pageable){

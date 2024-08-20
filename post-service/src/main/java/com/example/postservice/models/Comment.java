@@ -25,7 +25,8 @@ public class Comment {
 
     private String author;
 
-    private int postId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

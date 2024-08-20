@@ -17,7 +17,8 @@ public class Likes {
     @SequenceGenerator(name = "like_seq",allocationSize = 1)
     private Integer id;
 
-    private int postId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
 
     private String author;
 }
