@@ -3,6 +3,7 @@ package com.example.userservice.mapper;
 import com.example.userservice.dto.GenderType;
 import com.example.userservice.dto.ProfileAttributes;
 import com.example.userservice.dto.UserDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
@@ -27,18 +28,22 @@ public class UserRepMapper {
     }
 
     public ProfileAttributes fromMapToProfileAttributes(Map<String , List<String>> att ){
+
+        var bornAt = att.containsKey("bornAt") ? LocalDateTime.parse(att.get("bornAt").get(0)) : null;
+        var isSingle = !att.containsKey("isSingle") || Boolean.parseBoolean(att.get("isSingle").get(0));
+        var gender = att.containsKey("gender") ? GenderType.valueOf(att.get("gender").get(0)) : null;
         return  ProfileAttributes.builder()
                 .avatar(att.get("avatar").get(0))
                 .bio(att.get("bio").get(0))
-                .bornAt(LocalDateTime.parse(att.get("bornAt").get(0)))
-                .gender(GenderType.valueOf(att.get("gender").get(0)))
-                .isSingle(Boolean.parseBoolean(att.get("isSingle").get(0)))
+                .bornAt(bornAt)
+                .gender(gender)
+                .isSingle(isSingle)
                 .build();
     }
     @SneakyThrows
     public Map<String , List<String>> FromAttributeToMap(ProfileAttributes attributes){
         var att = new HashMap<String, List<String>>();
-        var fields = attributes.getClass().getFields();
+        var fields = attributes.getClass().getDeclaredFields();
         for (Field field : fields){
             field.setAccessible(true);
             att.put(field.getName(),
