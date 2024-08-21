@@ -46,6 +46,18 @@ spring:
             - Path=/uploads/posts/**
           filters:
             - RewritePath=/uploads/posts/(?<remaining>.*), /uploads/${remaining}
+        - id: avatars-uploads
+          uri: http://localhost:8030
+          predicates:
+            - Path=/uploads/avatars/**
+          filters:
+            - RewritePath=/uploads/avatars/(?<remaining>.*), /uploads/${remaining}
+        - id: messages-uploads
+          uri: http://localhost:8060
+          predicates:
+            - Path=/uploads/chats/**
+          filters:
+            - RewritePath=/uploads/chats/(?<remaining>.*), /uploads/${remaining}
         - id: friends-service
           uri: http://localhost:8050
           predicates:
