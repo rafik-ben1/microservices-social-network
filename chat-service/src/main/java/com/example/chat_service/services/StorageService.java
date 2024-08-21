@@ -1,4 +1,5 @@
-package com.example.postservice.service;
+package com.example.chat_service.services;
+
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,8 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -32,6 +31,6 @@ public class StorageService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return "uploads/posts/" +  fileName;
+        return "uploads/chats/" +  fileName;
     }
 }

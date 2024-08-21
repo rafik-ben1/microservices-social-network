@@ -11,10 +11,11 @@ public class MessageMapper {
 
     public Message mapToEntity (MessageRequest request, String chatId){
         return Message.builder()
-                .sentBy(request.sentBy())
+                .sentBy(request.getSentBy())
                 .chatId(chatId)
-                .content(request.content())
+                .content(request.getContent())
                 .sentAt(LocalDateTime.now())
+                .type(request.getType())
                 .build();
     }
 
