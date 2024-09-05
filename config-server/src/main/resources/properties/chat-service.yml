@@ -1,12 +1,6 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://admin:password@localhost:27017/chatsdb?authSource=admin
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+      uri: mongodb://admin:password@mongodb:27017/chatsdb?authSource=admin
 server:
   port: 8060

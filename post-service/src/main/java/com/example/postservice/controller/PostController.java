@@ -20,7 +20,7 @@ public class PostController {
 
     @PostMapping(consumes = "multipart/form-data")
     public Post createPost(@RequestHeader("user") String user , @ModelAttribute @Valid CreatePostDto dto, @RequestParam("image") MultipartFile image ){
-        String imagePath = storageService.save(user, image);
+        String imagePath = (image != null) ? storageService.save(user, image) : null;
         return postService.createPost(dto,user,imagePath);
     }
 

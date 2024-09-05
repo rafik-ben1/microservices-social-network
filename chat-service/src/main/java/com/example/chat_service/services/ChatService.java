@@ -52,7 +52,7 @@ public class ChatService {
 
 
     public Page<ChatResponseDto> getMyChats(Pageable pageable, String userId){
-     return repository.findByParticipantsContainingOrderByLastSent(userId,pageable).map(chat -> {
+     return repository.findByParticipantsContainingOrderByLastMessageSentAt(userId,pageable).map(chat -> {
          List<UserRep> participants = new ArrayList<>();
          chat.getParticipants().forEach(participant ->{
              if(!participant.equals(userId)){

@@ -1,24 +1,18 @@
 server:
   port: 8010
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
 spring:
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: kafka:9092
       group-id: paymentGroup,orderGroup
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: '*'
-        spring.json.type.mapping: friendRequest:com.example.friendsservice.kafka.FriendRequestEvent,commentRequest:com.example.postservice.kafka.NewCommentEvent
+        spring.json.type.mapping: friendRequest:com.example.notification_service.events.FriendRequestEvent,commentRequest:com.example.notification_service.events.NewCommentEvent
   mail:
-    host: localhost
+    host: mail-dev
     port: 1025
     username: rafik
     password: ben

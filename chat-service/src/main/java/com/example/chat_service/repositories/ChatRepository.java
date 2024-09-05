@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 public interface ChatRepository extends MongoRepository<Chat, String> {
-    Page<Chat> findByParticipantsContainingOrderByLastSent(String participant, Pageable pageable);
+    Page<Chat> findByParticipantsContainingOrderByLastMessageSentAt(String participant, Pageable pageable);
 }

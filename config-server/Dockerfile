@@ -1,25 +1,29 @@
-# Perform the extraction in a separate builder container
-FROM bellsoft/liberica-openjre-debian:17-cds AS builder
-WORKDIR /builder
-# This points to the built jar file in the target folder
-# Adjust this to 'build/libs/*.jar' if you're using Gradle
-ARG JAR_FILE=target/*.jar
-# Copy the jar file to the working directory and rename it to application.jar
-COPY ${JAR_FILE} application.jar
-# Extract the jar file using an efficient layout
-RUN java -Djarmode=tools -jar application.jar extract --layers --destination extracted
+FROM maven:3.8.4-openjdk-17 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# This is the runtime container
-FROM bellsoft/liberica-openjre-debian:17-cds
-WORKDIR /application
-# Copy the extracted jar contents from the builder container into the working directory in the runtime container
-# Every copy step creates a new docker layer
-# This allows docker to only pull the changes it really needs
-COPY --from=builder /builder/extracted/dependencies/ ./
-COPY --from=builder /builder/extracted/spring-boot-loader/ ./
-COPY --from=builder /builder/extracted/snapshot-dependencies/ ./
-COPY --from=builder /builder/extracted/application/ ./
-# Start the application jar - this is not the uber jar used by the builder
-# This jar only contains application code and references to the extracted jar files
-# This layout is efficient to start up and CDS friendly
-ENTRYPOINT ["java", "-jar", "application.jar"]
+FROM openjdk:17-slim as builder
+COPY --from=build /app/target/*.jar application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
+
+FROM eclipse-temurin:17-jre-alpine
+
+ENV JDK_JAVA_OPTIONS="-Xms256m -Xmx512m"
+
+RUN apk --no-cache add bash curl
+
+RUN mkdir /app
+RUN addgroup -S spring && adduser -S spring -G spring
+WORKDIR /app
+
+COPY --from=builder dependencies/ /app
+COPY --from=builder spring-boot-loader/ /app
+COPY --from=builder snapshot-dependencies/ /app
+COPY --from=builder application/ /app
+
+RUN chown -R spring:spring .
+USER spring:spring
+
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-cp", "BOOT-INF/classes:BOOT-INF/lib/*", "com.example.configserver.ConfigServerApplication"]
