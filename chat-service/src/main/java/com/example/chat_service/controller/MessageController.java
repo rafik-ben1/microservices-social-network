@@ -2,11 +2,13 @@ package com.example.chat_service.controller;
 
 import com.example.chat_service.dto.MessageRequest;
 import com.example.chat_service.models.Message;
+import com.example.chat_service.models.MessageType;
 import com.example.chat_service.services.MessageService;
 import com.example.chat_service.services.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,9 +21,10 @@ public class MessageController {
     private final StorageService storageService;
 
      @PostMapping(consumes = "multipart/form-data")
-    public void send(@ModelAttribute MessageRequest message, @RequestParam("image") MultipartFile image, @PathVariable("chatId") String chatId){
-        if (!image.isEmpty()){
+    public void send(@ModelAttribute MessageRequest message,@Nullable @RequestParam("image") MultipartFile image, @PathVariable("chatId") String chatId){
+        if (image != null ){
            var imagePath = storageService.save(message.getSentBy(),image);
+           message.setType(MessageType.IMAGE);
            message.setContent(imagePath);
         }
          messageService.saveAndSend(message , chatId);

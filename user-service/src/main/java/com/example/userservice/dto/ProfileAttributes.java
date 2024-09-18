@@ -1,18 +1,15 @@
 package com.example.userservice.dto;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.time.LocalDateTime;
+import lombok.*;
+import java.time.LocalDate;
 
 @Builder
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProfileAttributes {
-    private String avatar;
     private String bio;
-    private LocalDateTime bornAt;
+    private LocalDate bornAt;
     private GenderType gender;
     private boolean isSingle;
 }

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +20,7 @@ public class PostController {
     private final StorageService storageService;
 
     @PostMapping(consumes = "multipart/form-data")
-    public Post createPost(@RequestHeader("user") String user , @ModelAttribute @Valid CreatePostDto dto, @RequestParam("image") MultipartFile image ){
+    public Post createPost(@RequestHeader("user") String user , @ModelAttribute @Valid CreatePostDto dto,@Nullable @RequestParam("image") MultipartFile image ){
         String imagePath = (image != null) ? storageService.save(user, image) : null;
         return postService.createPost(dto,user,imagePath);
     }

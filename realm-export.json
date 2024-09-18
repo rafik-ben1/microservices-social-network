@@ -334,9 +334,9 @@
         "client.use.lightweight.access.token.enabled": "false",
         "backchannel.logout.session.required": "true",
         "client_credentials.use_refresh_token": "false",
-        "tls.client.certificate.bound.access.tokens": "false",
-        "require.pushed.authorization.requests": "false",
         "acr.loa.map": "{}",
+        "require.pushed.authorization.requests": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
         "display.on.consent.screen": "false",
         "pkce.code.challenge.method": "S256",
         "token.response.type.bearer.lower-case": "false"
@@ -493,10 +493,10 @@
       "protocol": "openid-connect",
       "attributes": {
         "oidc.ciba.grant.enabled": "false",
-        "post.logout.redirect.uris": "+",
-        "oauth2.device.authorization.grant.enabled": "false",
-        "display.on.consent.screen": "false",
         "backchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "+",
+        "display.on.consent.screen": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
       },
       "authenticationFlowBindingOverrides": {},
@@ -525,8 +525,8 @@
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "true",
-        "consent.screen.text": "${phoneScopeConsentText}",
-        "display.on.consent.screen": "true"
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${phoneScopeConsentText}"
       },
       "protocolMappers": [
         {
@@ -570,8 +570,8 @@
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "true",
-        "consent.screen.text": "${emailScopeConsentText}",
-        "display.on.consent.screen": "true"
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${emailScopeConsentText}"
       },
       "protocolMappers": [
         {
@@ -625,8 +625,8 @@
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "true",
-        "consent.screen.text": "${profileScopeConsentText}",
-        "display.on.consent.screen": "true"
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${profileScopeConsentText}"
       },
       "protocolMappers": [
         {
@@ -908,8 +908,8 @@
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "false",
-        "consent.screen.text": "",
-        "display.on.consent.screen": "false"
+        "display.on.consent.screen": "false",
+        "consent.screen.text": ""
       },
       "protocolMappers": [
         {
@@ -932,8 +932,8 @@
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "true",
-        "consent.screen.text": "${addressScopeConsentText}",
-        "display.on.consent.screen": "true"
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${addressScopeConsentText}"
       },
       "protocolMappers": [
         {
@@ -964,8 +964,8 @@
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "false",
-        "consent.screen.text": "${rolesScopeConsentText}",
-        "display.on.consent.screen": "true"
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${rolesScopeConsentText}"
       },
       "protocolMappers": [
         {
@@ -975,12 +975,12 @@
           "protocolMapper": "oidc-usermodel-client-role-mapper",
           "consentRequired": false,
           "config": {
-            "user.attribute": "foo",
             "introspection.token.claim": "true",
+            "multivalued": "true",
+            "user.attribute": "foo",
             "access.token.claim": "true",
             "claim.name": "resource_access.${client_id}.roles",
-            "jsonType.label": "String",
-            "multivalued": "true"
+            "jsonType.label": "String"
           }
         },
         {
@@ -1001,12 +1001,12 @@
           "protocolMapper": "oidc-usermodel-realm-role-mapper",
           "consentRequired": false,
           "config": {
-            "user.attribute": "foo",
             "introspection.token.claim": "true",
+            "multivalued": "true",
+            "user.attribute": "foo",
             "access.token.claim": "true",
             "claim.name": "realm_access.roles",
-            "jsonType.label": "String",
-            "multivalued": "true"
+            "jsonType.label": "String"
           }
         }
       ]
@@ -1121,14 +1121,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-usermodel-property-mapper",
             "oidc-address-mapper",
             "oidc-sha256-pairwise-sub-mapper",
+            "oidc-usermodel-property-mapper",
             "oidc-usermodel-attribute-mapper",
             "saml-user-property-mapper",
-            "oidc-full-name-mapper",
             "saml-user-attribute-mapper",
-            "saml-role-list-mapper"
+            "saml-role-list-mapper",
+            "oidc-full-name-mapper"
           ]
         }
       },
@@ -1187,14 +1187,26 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "oidc-address-mapper",
+            "saml-user-property-mapper",
+            "saml-user-attribute-mapper",
+            "saml-role-list-mapper",
+            "oidc-usermodel-attribute-mapper",
             "oidc-sha256-pairwise-sub-mapper",
             "oidc-full-name-mapper",
-            "saml-user-property-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "oidc-address-mapper",
-            "oidc-usermodel-property-mapper",
-            "saml-role-list-mapper",
-            "saml-user-attribute-mapper"
+            "oidc-usermodel-property-mapper"
+          ]
+        }
+      }
+    ],
+    "org.keycloak.userprofile.UserProfileProvider": [
+      {
+        "id": "3934acbd-a599-42cd-8f11-62be23dcd872",
+        "providerId": "declarative-user-profile",
+        "subComponents": {},
+        "config": {
+          "kc.user.profile.config": [
+            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}],\"unmanagedAttributePolicy\":\"ENABLED\"}"
           ]
         }
       }
@@ -1935,6 +1947,40 @@
        "realm-admin"
       ]
       }
+    },
+    {
+      "id": "rfkben",
+      "email": "rafik-ben@gmail.com",
+      "username": "rafik-ben",
+      "firstName": "rafik",
+      "lastName": "benaouda",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "temporary": false,
+          "type": "password",
+          "value": "123"
+        }
+      ]
+    },
+
+    {
+      "id": "ilyes",
+      "email": "ilyes@gmail.com",
+      "username": "hi.ilyes",
+      "firstName": "ilyes",
+      "lastName": "hadj",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "temporary": false,
+          "type": "password",
+          "value": "123"
+        }
+      ]
     }
+
   ]
 }

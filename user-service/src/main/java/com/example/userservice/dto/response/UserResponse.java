@@ -1,17 +1,15 @@
-package com.example.userservice.dto;
-
+package com.example.userservice.dto.response;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
+
+@Data
 @Builder
-@Getter
-@Setter
-public class UserDto {
+public class UserResponse {
     private String id;
     private String username;
     private String email;
     private String firstname;
     private String lastname;
-    private ProfileAttributes attributes;
+    private String avatar;
 }

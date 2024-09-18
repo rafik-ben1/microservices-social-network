@@ -17,7 +17,6 @@ public class StorageService {
 
     public String save(String user , MultipartFile file){
         Path uploads = Paths.get(uploadPath);
-        String fileUrl = null;
         String fileName =user + LocalDateTime.now().getSecond() + file.getOriginalFilename() ;
         try {
             if(!Files.exists(uploads)) {

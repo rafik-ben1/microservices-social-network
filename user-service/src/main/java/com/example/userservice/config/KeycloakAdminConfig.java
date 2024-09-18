@@ -3,6 +3,7 @@ package com.example.userservice.config;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
+import org.keycloak.admin.client.resource.RealmResource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,15 +22,15 @@ public class KeycloakAdminConfig {
     @Value("${keycloak.password}")
     private String password;
     @Bean
-    public Keycloak keycloak(){
-
-        return KeycloakBuilder.builder()
+    public RealmResource keycloak(){
+        return  KeycloakBuilder.builder()
                 .serverUrl(serverurl)
                 .realm(realm)
                 .clientId(clientId)
                 .grantType(OAuth2Constants.PASSWORD)
                 .username(username)
                 .password(password)
-                .build();
+                .build()
+                .realm(realm);
     }
 }

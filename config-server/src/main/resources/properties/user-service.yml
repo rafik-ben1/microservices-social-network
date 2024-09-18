@@ -4,7 +4,7 @@ spring:
 server:
   port: 8030
 keycloak:
-  server-url: http://localhost:8080
+  server-url: http://keycloak_host:8080
   realm: test1
   client-id: admin-cli
   username: rafik
