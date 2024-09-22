@@ -8,13 +8,18 @@ import {
   userManager,
 } from "./features/auth/OidcConfiguration.ts";
 import AuthWrapper from "./features/auth/AuthWrapper.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider userManager={userManager} onSigninCallback={onSigninCallback}>
-      <AuthWrapper>
-        <App />
-      </AuthWrapper>
+      <QueryClientProvider client={queryClient} >
+        <AuthWrapper>
+          <App />
+        </AuthWrapper>
+      </QueryClientProvider>
     </AuthProvider>
   </StrictMode>,
 );
