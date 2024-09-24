@@ -16,7 +16,7 @@ export default function Layout() {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-80 bg-white border-r">
+      <div className="  bg-white border-r">
         <Header />
         <div className="overflow-y-auto h-[calc(100vh-80px)]">
           {chats.map((chat) => <ChatRow key={chat.id} chat={chat} /> )}
