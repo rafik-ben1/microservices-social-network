@@ -1,10 +1,16 @@
-import { Button } from "./components/ui/button";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./pages/Layout";
+import { SelectedChat } from "./pages/SelectedChat";
 
 function App() {
   return (
-    <>
-      <Button>hi you </Button>
-    </>
+   <BrowserRouter >
+     <Routes>
+      <Route path="/" element={ <Layout/>  } >
+        <Route index element={ <SelectedChat/> } />
+      </Route>
+     </Routes>
+   </BrowserRouter >
   );
 }
 
