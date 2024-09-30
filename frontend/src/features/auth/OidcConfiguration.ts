@@ -6,6 +6,8 @@ export const userManager = new UserManager({
     redirect_uri: "http://localhost:5173/",
     post_logout_redirect_uri: "http://localhost:5173/",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
+    response_type:"code",
+    
 })
 
 export const onSigninCallback = () => {

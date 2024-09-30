@@ -25,7 +25,7 @@ export const ChatRow = ({chat} : {chat : Chat}) => {
     </Avatar>
     <div className="ml-4 flex-1">
       <div className="flex justify-between">
-        <h2 className="font-semibold">{chat.name}</h2>
+        <h2 className="font-semibold text-foreground ">{chat.name}</h2>
         <span className="text-sm text-gray-500">{chat.time}</span>
       </div>
       <p className="text-sm text-gray-600   ">{chat.lastMessage}</p>

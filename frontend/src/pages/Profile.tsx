@@ -1,19 +1,47 @@
+import { useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { CalendarDays, MapPin, User, Users } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { CalendarDays, MapPin, User, Users, UserPlus, Check } from "lucide-react"
 
-export function Profile() {
+export default function Profile() {
+  const [isFriend, setIsFriend] = useState(false)
+
+  const handleAddFriend = () => {
+    setIsFriend(true)
+    // Here you would typically make an API call to update the friend status
+  }
+
   return (
-    <Card className=" grow">
+    <Card className= "grow rounded-none sm:p-4 ">
       <CardHeader className="flex flex-row items-center gap-4">
-        <Avatar className="w-20 h-20">
+        <Avatar className="w-20 h-20  ">
           <AvatarImage alt="User's avatar" src="/placeholder.svg?height=80&width=80" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
-        <div className="flex flex-col">
-          <CardTitle className="text-2xl">John Doe</CardTitle>
-          <p className="text-muted-foreground">@johndoe</p>
+        <div className="flex flex-col flex-grow">
+          <div className="flex justify-between items-center">
+            <div>
+              <CardTitle className="text-2xl">John Doe</CardTitle>
+              <p className="text-muted-foreground">@johndoe</p>
+            </div>
+            <Button 
+              onClick={handleAddFriend} 
+              disabled={isFriend}
+              className="ml-4"
+            >
+              {isFriend ? (
+                <>
+                  <Check className="mr-2 h-4 w-4" /> Friends
+                </>
+              ) : (
+                <>
+                  <UserPlus className="mr-2 h-4 w-4" /> Add Friend
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="grid gap-4">

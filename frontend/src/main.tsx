@@ -14,11 +14,11 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AuthProvider userManager={userManager} onSigninCallback={onSigninCallback}>
-      <QueryClientProvider client={queryClient} >
-       { /*<AuthWrapper> */}
+    <AuthProvider userManager={userManager}  onSigninCallback={onSigninCallback}>
+      <QueryClientProvider client={queryClient}>
+        <AuthWrapper>
           <App />
-        {/* </AuthWrapper> */}
+        </AuthWrapper>
       </QueryClientProvider>
     </AuthProvider>
   </StrictMode>,
