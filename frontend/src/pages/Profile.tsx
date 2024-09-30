@@ -4,27 +4,30 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { CalendarDays, MapPin, User, Users, UserPlus, Check } from "lucide-react"
-
+import { useLocation, useNavigate } from "react-router-dom"
+import {ArrowLeft} from "lucide-react"
 export default function Profile() {
   const [isFriend, setIsFriend] = useState(false)
-
   const handleAddFriend = () => {
     setIsFriend(true)
-    // Here you would typically make an API call to update the friend status
   }
+  
+  const {state : data}  = useLocation()
+  const navigate = useNavigate()
 
   return (
     <Card className= "grow rounded-none sm:p-4 ">
       <CardHeader className="flex flex-row items-center gap-4">
+        <Button onClick={()=> navigate(-1)} className="md:hidden" variant="ghost" size="icon"  > <ArrowLeft /> </Button>
         <Avatar className="w-20 h-20  ">
           <AvatarImage alt="User's avatar" src="/placeholder.svg?height=80&width=80" />
-          <AvatarFallback>JD</AvatarFallback>
+          <AvatarFallback>{data?.firstname.at(0)}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col flex-grow">
           <div className="flex justify-between items-center">
             <div>
-              <CardTitle className="text-2xl">John Doe</CardTitle>
-              <p className="text-muted-foreground">@johndoe</p>
+              <CardTitle className="text-2xl">{data?.firstname + " " + data?.lastname}</CardTitle>
+              <p className="text-muted-foreground">{"@" + data?.username}</p>
             </div>
             <Button 
               onClick={handleAddFriend} 

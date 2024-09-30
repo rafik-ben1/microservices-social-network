@@ -1,24 +1,33 @@
-import { ReactNode } from 'react';
-import { useAuth } from 'react-oidc-context';
+import { useEffect, useState } from 'react';
+import { hasAuthParams, useAuth } from 'react-oidc-context';
 
-interface AuthWrapperProps {
-  children: ReactNode;
-}
 
-function AuthWrapper({ children }: AuthWrapperProps) {
+function AuthWrapper({ children }: React.PropsWithChildren) {
   const auth = useAuth();
+  const [hasTriedSignin, setHasTriedSignin] = useState(false);
 
-  if (auth.isLoading) {
-    return <div>Loading authentication...</div>; 
-  }
 
-  if (!auth.isAuthenticated) {
-    auth.signinRedirect(); 
-    return <div>Redirecting to login...</div>;
-  }
+  useEffect(() => {
+    if (!(hasAuthParams() || auth.isAuthenticated || auth.activeNavigator || auth.isLoading || hasTriedSignin)) {
+      void auth.signinRedirect();
+      setHasTriedSignin(true);
+    }
+  }, [auth, hasTriedSignin]);
 
-  return <>{children}</>;
-}
+  return (
+    <>
+      {auth.isLoading ? (
+        <>
+          <h1>Loading...</h1>
+        </>
+      ) : auth.isAuthenticated ? (
+        children
+      ) : (
+          <h1>Unable to sign in</h1>
+      )}
+    </>
+  );
+};
 
 export default AuthWrapper;
 

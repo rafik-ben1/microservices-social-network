@@ -1,9 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { User } from "./user.types"
+import { useNavigate } from "react-router-dom"
 
 const UserSearchRow = ({user}: {user : User}) => {
+  const navigate = useNavigate()
   return (
-    <div
+    <div onClick={()=> navigate("/profile/"+ user.id , {state : user}) }
     className={`flex items-center p-4 cursor-pointer w-full hover:bg-gray-100`}  >
     <Avatar className="h-12 w-12">
       <AvatarImage src={user.avatar} />

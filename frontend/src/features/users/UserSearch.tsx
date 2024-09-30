@@ -19,11 +19,11 @@ const UserSearch = ({setIsSearching}: {setIsSearching : React.Dispatch<boolean>}
         <Button size="icon" variant="ghost"  onClick={onGoBack} ><ArrowLeft className=" text-primary" /> </Button>
         <div className="relative w-full ">
          <Search className="absolute left-3 top-1/2 transform bg-white border-none -translate-y-1/2 text-gray-400" />
-          <Input  autoFocus onChange={(e) => setSearchParams({search : e.target.value})  } 
+          <Input autoFocus onChange={(e) => setSearchParams({search : e.target.value})  } 
            className="pl-10 rounded-none border-none focus-visible:ring-0 " placeholder="Search" />
   </div>
         </div>
-    {data?.map(user => <UserSearchRow user={user} /> )}
+    {data?.map(user => <UserSearchRow key={user.id} user={user} /> )}
     </div>
   )
 }

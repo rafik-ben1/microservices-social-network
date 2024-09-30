@@ -11,7 +11,7 @@ const chats = [
 const MyChats = () => {
   return (
     <>
-    {chats.map(chat => <ChatRow chat={chat} /> )}
+    {chats.map(chat => <ChatRow key={chat.id} chat={chat} /> )}
     </>
   )
 }
