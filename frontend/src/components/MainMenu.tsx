@@ -8,7 +8,7 @@ const MainMenu = () => {
     <DropdownMenu>
     <DropdownMenuTrigger asChild >
       <Button variant="ghost" size="icon" >
-        <Menu className="h-6 w-6 text-gray-500" />
+        <Menu className="h-6 w-6 text-primary-foreground" />
        </Button>
      </DropdownMenuTrigger>
     <DropdownMenuContent>

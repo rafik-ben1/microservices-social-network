@@ -13,7 +13,7 @@ export const Sidebar = () => {
   return (
  <div className={clsx(" bg-background border-r  " , isInMainPage ? " block w-full md:w-fit" : "hidden md:block " )}>
    {!isSearching && <Header setIsSearching={setIsSearching} />}
-   <div className=" w-full md:w-80 h-[calc(100vh-80px)]">
+   <div className=" w-full divide-y md:w-80 h-[calc(100vh-80px)]">
     {
         isSearching ? <UserSearch setIsSearching={setIsSearching} /> :
         <MyChats />

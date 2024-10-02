@@ -14,7 +14,7 @@ export const ChatRow = ({chat} : {chat : Chat}) => {
   return (
     <div
     key={chat.id}
-    className={`flex items-center p-4 cursor-pointer hover:bg-gray-100 ${
+    className={`flex items-center bg-secondary p-4 cursor-pointer hover:bg-gray-100 ${
       selectedChat === chat.id ? 'bg-blue-50 text-white ' : ''
     }`}
     onClick={() => setSelectedChat(chat.id)}
