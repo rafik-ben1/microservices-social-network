@@ -6,8 +6,7 @@ import InputRow from "@/components/InputRow"
 import { useState } from "react"
 
 import DatePicker from "@/components/DatePicker"
-import SelectIntrests from "@/components/SelectIntrests"
-import { Badge } from "@/components/ui/badge"
+import SelectInterests from "@/components/SelectInterests"
 
 const UpdateProfileForm = () => {
     const [firstName, setFirstName] = useState('')
@@ -16,7 +15,7 @@ const UpdateProfileForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState<Date>()
     const [address, setAddress] = useState('')
     const [socialStatus, setSocialStatus] = useState('')
-    const [selectedIntrests , setSelectedIntrests] = useState<string[]>([])
+    const [selectedInterests , setSelectedInterests] = useState<string[]>([])
 
   return (
     <form className="space-y-4">
@@ -77,12 +76,10 @@ const UpdateProfileForm = () => {
       </Select>
     </InputRow>
 
-      <SelectIntrests selected={selectedIntrests} setSelected={setSelectedIntrests} />
+      <SelectInterests selected={selectedInterests} setSelected={setSelectedInterests} />
    
     </div>
-    <div className="flex flex-wrap gap-2">
-        {selectedIntrests.map(intrest => <Badge variant="secondary">{intrest}</Badge>)}
-      </div>
+  
     <Button type="submit" className="w-full">Save Profile</Button>
   </form>
 )
