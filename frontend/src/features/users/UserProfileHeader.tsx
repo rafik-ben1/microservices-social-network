@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { ArrowLeft, Check, UserPlus } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { User } from './user.types'
+import ProfileActionButton from './ProfileActionButton'
 
 export const UserProfileHeader = ({user} :{user : User} ) => {
   const navigate = useNavigate()
@@ -20,12 +21,7 @@ export const UserProfileHeader = ({user} :{user : User} ) => {
           <CardTitle className="text-2xl">{user?.firstname + " " + user?.lastname}</CardTitle>
           <p className="text-muted-foreground">{"@" + user?.username}</p>
         </div>
-        <Button 
-          className="ml-4"
-          onClick={()=> navigate("/update")}
-        >
-       edit profile
-        </Button>
+       <ProfileActionButton />
       </div>
     </div>
   </CardHeader>

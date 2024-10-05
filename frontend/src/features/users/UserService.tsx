@@ -1,7 +1,8 @@
 import { useFetchFunction } from "@/hooks/useFetch";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useSearchParams } from "react-router-dom";
+import {useSearchParams } from "react-router-dom";
 import { User } from "./user.types";
+import { useAuth } from "react-oidc-context";
 
 export function useGetUsers() {
   const [searchParams] = useSearchParams();
@@ -13,9 +14,12 @@ export function useGetUsers() {
 }
 
 export function useGetUser(){
-  const id = useParams()
+  const id = useAuth().user?.profile.sub
   return useQuery({
-    queryKey : ["user", id] ,
-    queryFn: useFetchFunction<User>({url:"/users/"+id.id}),
+    queryKey : ["user"] ,
+    queryFn: useFetchFunction<User>({url:"/users/"+id}),
+    refetchInterval : Infinity,
+    refetchOnMount: false,
+    enabled:!!id
   })
 }
