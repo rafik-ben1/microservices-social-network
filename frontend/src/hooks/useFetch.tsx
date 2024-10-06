@@ -1,9 +1,10 @@
 import { BASE_API_URL } from "@/common/constants";
 import { useAuth } from "react-oidc-context";
 
+export type HttpMethods = "GET" | "POST" | "PATCH" | "DELETE" | "PUT"; 
 interface FetchOptions {
   url: string;
-  method?: "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
+  method?:  HttpMethods
   type?: "application/json" | "multipart/form-data";
   body?: any;
 }

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
-import { UserPlus, UserMinus, UserCheck, Edit, Clock, X } from "lucide-react"
+import { UserPlus, UserCheck, Edit, Clock } from "lucide-react"
 import { useGetFriendshipStatus } from "../friends/FriendService"
+import HandelFriendRequest from "../friends/HandelFriendRequest"
 
 
 
@@ -17,15 +18,7 @@ export default function ProfileActionButton(){
   case "requestSent":
     return <Button className="flex items-center gap-2" > <Clock className="text-sm" /> request sent </Button>  
   case "requestReceived":
-    return (
-             <div className="flex flex-col gap-2 items-center" >
-              <p>sent you a friend request</p>
-              <span className="flex items-center gap-2" >
-                <Button size="sm" variant="outline" className="flex items-center gap-1"   > <X /> Decline  </Button> 
-                <Button size="sm" className="flex items-center gap-1 text-sm "   > <UserPlus /> Accept  </Button> 
-              </span>
-             </div>
-           )
+    return <HandelFriendRequest />
   case "none":
     return  <Button className="flex items-center gap-2" > <UserPlus  /> add friend  </Button>
           }
