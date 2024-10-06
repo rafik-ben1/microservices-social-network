@@ -5,7 +5,7 @@ import {Search} from "lucide-react"
 export const Header = ({setIsSearching}: {setIsSearching : React.Dispatch<boolean>}) => {
 
   return (
-<div className="p-2 border-b bg-primary-foreground ">
+<div className="p-2 border-b  ">
           <div className="flex items-center justify-between ">
             <span className=' flex items-center gap-1' >
               <MainMenu /> 

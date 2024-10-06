@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useState } from "react"
 
 
 interface Chat {
@@ -10,14 +9,11 @@ interface Chat {
     unread: number;
 }
 export const ChatRow = ({chat} : {chat : Chat}) => {
-    const [selectedChat, setSelectedChat] = useState<number | null>(null);
   return (
     <div
     key={chat.id}
-    className={`flex items-center bg-secondary p-4 cursor-pointer hover:bg-gray-100 ${
-      selectedChat === chat.id ? 'bg-blue-50 text-white ' : ''
-    }`}
-    onClick={() => setSelectedChat(chat.id)}
+    className="flex items-center p-4 cursor-pointer hover:bg-gray-100"
+  
   >
     <Avatar className="h-12 w-12">
       <AvatarImage src={`https://i.pravatar.cc/100?u=${chat.id}`} />

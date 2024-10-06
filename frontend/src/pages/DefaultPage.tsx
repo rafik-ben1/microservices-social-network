@@ -4,7 +4,7 @@ import { Users, HelpCircle, Bookmark } from "lucide-react"
 
 export default function DefaultPage() {
   return (
-     <div className=" grow flex-1 bg-secondary hidden md:block " >  
+     <div className=" grow flex-1 hidden md:block " >  
       <main className="flex-1 overflow-auto p-4 mt-24  ">
         <Card className="w-full max-w-2xl mx-auto">
           <CardHeader>
