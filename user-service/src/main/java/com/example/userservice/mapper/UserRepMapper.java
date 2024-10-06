@@ -1,7 +1,6 @@
 package com.example.userservice.mapper;
 import com.example.userservice.dto.GenderType;
 import com.example.userservice.dto.ProfileAttributes;
-import com.example.userservice.dto.response.UserProfileResponse;
 import com.example.userservice.dto.response.UserResponse;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
@@ -11,19 +10,10 @@ import java.util.Map;
 
 @Service
 public class UserRepMapper {
-    public UserResponse mapToUserResponseDto(UserRepresentation userRepresentation){
-        return UserResponse.builder()
-                .id(userRepresentation.getId())
-                .username(userRepresentation.getUsername())
-                .email(userRepresentation.getEmail())
-                .firstname(userRepresentation.getFirstName())
-                .lastname(userRepresentation.getLastName())
-                .avatar(userRepresentation.firstAttribute("avatar"))
-                .build();
-    }
+
     
-    public UserProfileResponse mapToUserProfileResponse(UserRepresentation userRepresentation){
-      return UserProfileResponse.builder()
+    public UserResponse mapToUserResponse(UserRepresentation userRepresentation){
+      return UserResponse.builder()
       .id(userRepresentation.getId())
       .username(userRepresentation.getUsername())
       .email(userRepresentation.getEmail())

@@ -1,6 +1,5 @@
 package com.example.userservice.controller;
 import com.example.userservice.dto.request.UpdateProfile;
-import com.example.userservice.dto.response.UserProfileResponse;
 import com.example.userservice.dto.response.UserResponse;
 import com.example.userservice.service.UserService;
 import jakarta.ws.rs.QueryParam;
@@ -22,12 +21,12 @@ public class UsersController {
     return userService.searchUsers(search);
    }
    @GetMapping("/{id}")
-   public UserProfileResponse findOne(@PathVariable("id") String id ){
+   public UserResponse findOne(@PathVariable("id") String id ){
        return userService.findOne(id);
    }
 
    @PatchMapping("/profile")
-    public UserProfileResponse updateProfile(@RequestHeader("user") String user, @RequestBody UpdateProfile userDto ){
+    public UserResponse updateProfile(@RequestHeader("user") String user, @RequestBody UpdateProfile userDto ){
         
        return userService.updateProfile(user, userDto);
    }
