@@ -1,6 +1,6 @@
 package com.example.userservice.dto.request;
-
 import com.example.userservice.dto.GenderType;
+import com.example.userservice.dto.RelationshipStatus;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,5 +17,7 @@ public class UpdateProfile {
     private String bio;
     private LocalDate bornAt;
     private GenderType gender;
-    private boolean isSingle;
+    private RelationshipStatus relationshipStatus;
+    private String[] hobbies;
+    private String address;
 }

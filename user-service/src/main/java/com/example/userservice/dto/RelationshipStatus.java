@@ -2,13 +2,16 @@ package com.example.userservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum GenderType {
-    MALE("male"),
-    FEMALE("female");
+public enum RelationshipStatus {
+    SINGLE("single"),
+    INRELATIONSHIP("in a relationship"),
+    ENGAGED("engaged"),
+    MARRIED("married"),
+    DIVORCED("divorced"),;
 
  private final String displayValue;
 
- GenderType(String displayValue) {
+ RelationshipStatus(String displayValue) {
   this.displayValue = displayValue;
  }
  
@@ -16,5 +19,6 @@ public enum GenderType {
  public String getDisplayValue(){
     return displayValue;
  }
+
 
 }

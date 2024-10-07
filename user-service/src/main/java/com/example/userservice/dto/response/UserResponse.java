@@ -1,7 +1,7 @@
 package com.example.userservice.dto.response;
-
-import com.example.userservice.dto.ProfileAttributes;
-
+import java.time.LocalDate;
+import com.example.userservice.dto.GenderType;
+import com.example.userservice.dto.RelationshipStatus;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,5 +14,10 @@ public class UserResponse {
     private String firstname;
     private String lastname;
     private String avatar;
-    private ProfileAttributes profileAttributes;
+    private String bio;
+    private LocalDate bornAt;
+    private GenderType gender;
+    private RelationshipStatus relationshipStatus;
+    private String[] hobbies;
+    private String address;
 }
