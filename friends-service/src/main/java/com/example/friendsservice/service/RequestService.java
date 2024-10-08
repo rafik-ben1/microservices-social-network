@@ -1,8 +1,7 @@
 package com.example.friendsservice.service;
-
 import com.example.friendsservice.chat.ChatClient;
 import com.example.friendsservice.chat.CreateChatRequest;
-import com.example.friendsservice.kafka.FriendRequestEvent;
+import com.example.friendsservice.kafka.EventPublisher;
 import com.example.friendsservice.model.Friendship;
 import com.example.friendsservice.user.UserClient;
 import com.example.friendsservice.user.UserRep;
@@ -14,12 +13,7 @@ import com.example.friendsservice.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,7 +23,7 @@ public class RequestService {
     private final UserClient userClient;
     private final RequestMapper mapper;
     private final ChatClient chatClient;
-    private final KafkaTemplate<String, FriendRequestEvent> kafkaTemplate;
+    private final EventPublisher eventPublisher;
 
     public void sendFriendRequest(String from , String to){
         Request request = Request.builder()
@@ -37,7 +31,7 @@ public class RequestService {
                                  .sentTo(to)
                                  .build();
        Request saved = requestRepository.save(request);
-      sendFriendRequestEvent(saved.getSentBy(),saved.getSentTo(),false);
+      eventPublisher.sendFriendRequestEvent(saved.getSentBy(),saved.getSentTo(),false);
     }
 
     public void acceptRequest(int requestId){
@@ -49,21 +43,11 @@ public class RequestService {
                 .participant(friendship.getUsers())
                 .build();
         chatClient.createChat(createChatRequest);
-        sendFriendRequestEvent(request.getSentBy(), request.getSentTo(),true);
+        eventPublisher.sendFriendRequestEvent(request.getSentBy(), request.getSentTo(),true);
 
     }
 
-    @Async
-    private void sendFriendRequestEvent(String senderId,String recieverId, boolean isAccepted) {
-        var reciever = userClient.findUserById(recieverId);
-        var sender = userClient.findUserById(senderId);
-        var event = new FriendRequestEvent(sender.getFirstname() + " " + sender.getLastname(),
-                reciever.getEmail(),
-                LocalDateTime.now()
-        );
-        var topic = isAccepted ? "accepted" : "sent";
-        kafkaTemplate.send(String.format("friend-request-%s",topic),event);
-    }
+  
 
     public void removeRequest(int id){
         requestRepository.deleteById(id);

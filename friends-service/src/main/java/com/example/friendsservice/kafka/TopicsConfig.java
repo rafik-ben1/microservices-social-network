@@ -1,5 +1,4 @@
 package com.example.friendsservice.kafka;
-
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +11,6 @@ public class TopicsConfig {
     public KafkaAdmin.NewTopics topics(){
         NewTopic topic = TopicBuilder.name("friend-request-sent").build();
         NewTopic topic1 = TopicBuilder.name("friend-request-accepted").build();
-        return new KafkaAdmin.NewTopics(topic);
+        return new KafkaAdmin.NewTopics(topic,topic1);
     }
 }
