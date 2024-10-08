@@ -34,4 +34,9 @@ public class UsersController {
    public String updateAvatar(@RequestHeader("user") String user ,@RequestParam("image") MultipartFile file ){
     return userService.updateAvarar(user, file);
    }
+
+   @GetMapping
+   public List<UserResponse> getUsersById(@RequestBody List<String> usersIds ) {
+   return userService.getUsersById(usersIds);
+  }
 }

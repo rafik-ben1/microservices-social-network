@@ -58,4 +58,8 @@ public class UserService {
         keycloak.users().get(userId).update(user);
         return avatar;
     }
+
+    public List<UserResponse> getUsersById(List<String> usersIds){
+        return usersIds.stream().map(this::findOne).toList();
+    }
 }
