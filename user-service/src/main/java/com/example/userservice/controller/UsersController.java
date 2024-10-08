@@ -16,8 +16,8 @@ import java.util.List;
 public class UsersController {
    private final UserService userService;
 
-   @GetMapping
-    public List<UserResponse> getUsers(@QueryParam("search") String search ) {
+   @GetMapping("/search")
+    public List<UserResponse> getUsers(@QueryParam("username") String search ) {
     return userService.searchUsers(search);
    }
    @GetMapping("/{id}")
