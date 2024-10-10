@@ -1,4 +1,4 @@
-package com.example.friendsservice.dto;
+package com.example.friendsservice.dto.response;
 
 import com.example.friendsservice.user.UserRep;
 import lombok.*;

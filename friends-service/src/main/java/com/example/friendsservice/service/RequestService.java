@@ -1,12 +1,12 @@
 package com.example.friendsservice.service;
 import com.example.friendsservice.chat.ChatClient;
 import com.example.friendsservice.chat.CreateChatRequest;
+import com.example.friendsservice.dto.response.RecievedRequestResponse;
+import com.example.friendsservice.dto.response.SentRequestResponse;
 import com.example.friendsservice.kafka.EventPublisher;
 import com.example.friendsservice.model.Friendship;
 import com.example.friendsservice.user.UserClient;
 import com.example.friendsservice.user.UserRep;
-import com.example.friendsservice.dto.RecievedRequestResponse;
-import com.example.friendsservice.dto.SentRequestResponse;
 import com.example.friendsservice.mapper.RequestMapper;
 import com.example.friendsservice.model.Request;
 import com.example.friendsservice.repository.RequestRepository;

@@ -1,7 +1,6 @@
 package com.example.friendsservice.controller;
-
-import com.example.friendsservice.dto.RecievedRequestResponse;
-import com.example.friendsservice.dto.SentRequestResponse;
+import com.example.friendsservice.dto.response.RecievedRequestResponse;
+import com.example.friendsservice.dto.response.SentRequestResponse;
 import com.example.friendsservice.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
