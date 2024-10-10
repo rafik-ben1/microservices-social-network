@@ -16,8 +16,8 @@ import java.util.List;
 public class UsersController {
    private final UserService userService;
 
-   @GetMapping("/search")
-    public List<UserResponse> getUsers(@QueryParam("username") String search ) {
+   @GetMapping
+    public List<UserResponse> getUsers(@QueryParam("search") String search ) {
     return userService.searchUsers(search);
    }
    @GetMapping("/{id}")
@@ -35,8 +35,4 @@ public class UsersController {
     return userService.updateAvarar(user, file);
    }
 
-   @GetMapping
-   public List<UserResponse> getUsersById(@RequestBody List<String> usersIds ) {
-   return userService.getUsersById(usersIds);
-  }
 }

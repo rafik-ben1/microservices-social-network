@@ -59,7 +59,4 @@ public class UserService {
         return avatar;
     }
 
-    public List<UserResponse> getUsersById(List<String> usersIds){
-        return usersIds.stream().map(this::findOne).toList();
-    }
 }
