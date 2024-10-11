@@ -30,16 +30,3 @@ export function useGetFriendshipStatus() {
     });
 }
 
-export function useHandelFriendRequest(){
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn : (requestId : string , isAccepting : boolean = true ) => {
-      let method : HttpMethods  = isAccepting ? "POST" : "DELETE" 
-      let fun = useFetchFunction<void>({url : `/friends/request/${requestId}`, method })
-      return fun()
-    },
-    onSuccess : () => {
-      queryClient.invalidateQueries({queryKey : ["request"]})
-    }
-  })
-}

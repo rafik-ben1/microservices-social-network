@@ -4,12 +4,14 @@ export interface User {
   firstname: string;
   lastname: string;
   avatar?: string;
-  attributs?: UserAttributes;
+  bio?: string;
+  gender?: "male" | "female";
+  reltationshipStatus?: ReltationshipStatus ;
+  bornAt?: Date;
+  address? : string;
 }
 
-interface UserAttributes {
-  bio: string;
-  gender: "MALE" | "FEMALE";
-  isSingle: boolean;
-  bornAt: Date;
-}
+
+export type ReltationshipStatus = "married" | "single" | "in a relationship" | "married" | "divorced"
+
+
