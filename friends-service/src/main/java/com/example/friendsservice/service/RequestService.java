@@ -1,8 +1,8 @@
 package com.example.friendsservice.service;
 import com.example.friendsservice.chat.ChatClient;
 import com.example.friendsservice.chat.CreateChatRequest;
-import com.example.friendsservice.dto.response.RecievedRequestResponse;
-import com.example.friendsservice.dto.response.SentRequestResponse;
+import com.example.friendsservice.dto.RequestType;
+import com.example.friendsservice.dto.response.RequestResponse;
 import com.example.friendsservice.kafka.EventPublisher;
 import com.example.friendsservice.model.Friendship;
 import com.example.friendsservice.user.UserClient;
@@ -52,17 +52,17 @@ public class RequestService {
     public void removeRequest(int id){
         requestRepository.deleteById(id);
     }
-    public Page<RecievedRequestResponse> getRecievedRequest(String user, Pageable pageable){
+    public Page<RequestResponse> getRecievedRequest(String user, Pageable pageable){
        return requestRepository.findBySentTo(user,pageable).map(request ->{
             UserRep userFound = userClient.findUserById(request.getSentBy());
-            return mapper.mapToRecieved(request, userFound);
+            return mapper.mapToResponse(request, userFound,RequestType.RECIEVED);
         } );
     }
 
-    public Page<SentRequestResponse> getSentRequest(String user, Pageable pageable){
+    public Page<RequestResponse> getSentRequest(String user, Pageable pageable){
         return requestRepository.findBySentBy(user,pageable).map(request ->{
             UserRep userFound = userClient.findUserById(request.getSentTo());
-            return mapper.mapToSent(request, userFound);
+            return mapper.mapToResponse(request, userFound,RequestType.SENT);
         } );
     }
 }

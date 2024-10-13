@@ -1,6 +1,5 @@
 package com.example.friendsservice.controller;
-import com.example.friendsservice.dto.response.RecievedRequestResponse;
-import com.example.friendsservice.dto.response.SentRequestResponse;
+import com.example.friendsservice.dto.response.RequestResponse;
 import com.example.friendsservice.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +26,7 @@ public class RequestController {
     }
 
     @GetMapping("/recieved")
-    Page<RecievedRequestResponse> getRecieved(@RequestHeader("user") String user, Pageable pageable){
+    Page<RequestResponse> getRecieved(@RequestHeader("user") String user, Pageable pageable){
      return requestService.getRecievedRequest(user, pageable);
     }
     @PostMapping("/recieved/{requestId}")
@@ -36,7 +35,7 @@ public class RequestController {
     }
 
     @GetMapping("/sent")
-    Page<SentRequestResponse> getSent(@RequestHeader("user") String user , Pageable pageable ){
+    Page<RequestResponse> getSent(@RequestHeader("user") String user , Pageable pageable ){
         return requestService.getSentRequest(user, pageable);
     }
 
