@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import com.example.friendsservice.dto.response.FriendshipStatusResponse;
 import com.example.friendsservice.service.FriendService;
 import com.example.friendsservice.user.UserRep;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
@@ -30,14 +31,15 @@ public class FriendsController {
     }
 
     @GetMapping("/{id}")
-    public String getFriendshipStatus(@RequestHeader("user") String user,@RequestParam String id ) {
-        return new String();
+    public FriendshipStatusResponse getFriendshipStatus(@RequestHeader("user") String user,@PathVariable("id") String id ) {
+	    System.out.println(id);
+        return friendService.getFriendshipStatus(user, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void unfriend(@RequestHeader("user") String user,@RequestParam String id) {
-        
+    public void unfriend(@RequestHeader("user") String user,@PathVariable("id") String id) {
+        friendService.unfriend(user, id);
     }
     
     

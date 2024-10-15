@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-
+import jakarta.persistence.ElementCollection;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +18,7 @@ public class Friendship {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
+    @ElementCollection
     private List<String> users;
 
     @CreationTimestamp

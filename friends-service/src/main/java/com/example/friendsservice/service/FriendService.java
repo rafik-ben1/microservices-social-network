@@ -3,16 +3,14 @@ package com.example.friendsservice.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.example.friendsservice.dto.FriendshipStatus;
 import com.example.friendsservice.dto.response.FriendshipStatusResponse;
 import com.example.friendsservice.repository.FriendshipRepository;
 import com.example.friendsservice.repository.RequestRepository;
 import com.example.friendsservice.user.UserClient;
 import com.example.friendsservice.user.UserRep;
-
 import lombok.RequiredArgsConstructor;
-
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +20,7 @@ public class FriendService {
    private final UserClient userClient;
    
     public Page<UserRep> getMyFriends(String user , Pageable pageable){     
-     var friendships =  fRepository.findByUsersContaining(user, pageable);
+     var friendships =  fRepository.findByUsersContaining(user,pageable);
       return friendships.map(friendship -> {
         var friendId = friendship.getUsers().stream()
               .filter(id -> id.equals(user)).findFirst().get();
@@ -36,7 +34,7 @@ public class FriendService {
         return FriendshipStatusResponse.builder()
                   .status(FriendshipStatus.SELF).build();
       }
-      var isFriend = fRepository.findByUsersContaining(user, id).isPresent();
+      var isFriend = fRepository.findByUsersIn(List.of(user,id)).isPresent();
       if (isFriend) {
         return FriendshipStatusResponse.builder().status(FriendshipStatus.FRIENDS).build();
       }
@@ -57,7 +55,7 @@ public class FriendService {
     }
    
     public void unfriend(String user,String id){
-      fRepository.deleteByUsersContaining(user, id);
+      fRepository.deleteByUsers(user, id);
     }
 
 }
