@@ -1,18 +1,19 @@
-import React from "react"
 import UserSearchRow from "./UserSearchRow"
 import { useGetUsers } from "./UserService"
 import {ArrowLeft, Search} from "lucide-react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import UserRowSkeleton from "./UserRowSkeleton"
 const UserSearch = () => {
-  const {data, error, isLoading} = useGetUsers()
+  const {data,isLoading} = useGetUsers()
   const [, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const onGoBack = ()=> {
     setSearchParams({})
     navigate("/")
   } 
+
   return (
     <div className="flex flex-col  " >
       <div className="flex items-center "> 
@@ -23,7 +24,8 @@ const UserSearch = () => {
            className="pl-10 rounded-none border-none focus-visible:ring-0 " placeholder="Search" />
   </div>
         </div>
-    {data?.map(user => <UserSearchRow key={user.id} user={user} /> )}
+    { isLoading ? <UserRowSkeleton />
+     :data?.map(user => <UserSearchRow user={user} key={user.id} /> )}
     </div>
   )
 }

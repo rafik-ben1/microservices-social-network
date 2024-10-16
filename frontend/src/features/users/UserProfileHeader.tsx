@@ -3,10 +3,10 @@ import { CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { User } from './user.types'
 import ProfileActionButton from './ProfileActionButton'
+import { UserProfile } from 'oidc-client-ts'
 
-export const UserProfileHeader = ({user} :{user : User} ) => {
+export const UserProfileHeader = ({user} :{user : UserProfile} ) => {
   const navigate = useNavigate()
   return (
     <CardHeader className="flex flex-row items-center gap-4">
