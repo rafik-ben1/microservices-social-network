@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 import com.example.userservice.dto.request.UpdateProfile;
+import com.example.userservice.dto.response.UserProfileResponse;
 import com.example.userservice.dto.response.UserResponse;
 import com.example.userservice.mapper.UserRepMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +28,20 @@ public class UserService {
 
     }
 
-    public UserResponse findOne(String id) {
-        return mapper.mapToUserResponse(keycloak
+    public UserProfileResponse findProfile(String id) {
+        return mapper.mapToUserProfileResponse(keycloak
                 .users()
                 .get(id).toRepresentation());
     }
 
+    public UserResponse findOne(String id){
+         return mapper.mapToUserResponse(keycloak
+         .users()
+         .get(id).toRepresentation());
+    }
+
     @SneakyThrows
-    public UserResponse updateProfile(String id, UpdateProfile dto) {
+    public UserProfileResponse updateProfile(String id, UpdateProfile dto) {
         var user = keycloak.users()
                 .get(id).toRepresentation();
         var fields = UpdateProfile.class.getDeclaredFields();
@@ -48,7 +55,7 @@ public class UserService {
             }
         }
         keycloak.users().get(id).update(user);
-        return mapper.mapToUserResponse(user);
+        return mapper.mapToUserProfileResponse(user);
     }
 
     public String updateAvarar(String userId, MultipartFile file) {
