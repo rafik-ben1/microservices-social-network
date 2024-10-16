@@ -16,11 +16,11 @@ export default function FriendsManagement() {
 
 
   return (
-    <Card className="w-64">
+    <div className=" h-full">
       <CardHeader>
         <CardTitle>Friends & Requests</CardTitle>
       </CardHeader>
-      <CardContent className="p-4">
+      <CardContent className="p-2">
         <Select onValueChange={setSelectedView} defaultValue={selectedView}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select view" />
@@ -32,13 +32,13 @@ export default function FriendsManagement() {
           </SelectContent>
         </Select>
 
-        <ScrollArea className="h-[300px] mt-4">
+        <ScrollArea className="mt-2">
           {selectedView === "friends" ? <MyFriends />
             : <FriendsRequests type={selectedView as FriendRequestType}  />
             }
 
         </ScrollArea>
       </CardContent>
-    </Card>
+    </div>
   )
 }

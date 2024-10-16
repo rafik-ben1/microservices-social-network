@@ -1,20 +1,24 @@
 import { Button } from "@/components/ui/button"
-import { UserPlus, UserCheck, Edit, Clock } from "lucide-react"
+import { UserPlus, Edit, Clock } from "lucide-react"
 import { useGetFriendshipStatus } from "../friends/FriendService"
 import HandelFriendRequest from "../friends/HandelFriendRequest"
+import UnfriendDialog from "../friends/UnfriendDialog"
+import { Skeleton } from "@/components/ui/skeleton"
 
 
 
 
 export default function ProfileActionButton(){ 
 
- const  {data} = useGetFriendshipStatus()
+ const  {data, isLoading} = useGetFriendshipStatus()
+ if(isLoading)
+   return <Skeleton className="h-8 w-20" />;
  
  switch (data?.status) {
   case "self":
     return <Button className="flex items-center gap-2"> <Edit className="text-sm" /> Edit profile </Button>
   case "friends":
-    return <Button className="flex items-center gap-2" > <UserCheck className="text-sm" /> friends </Button>
+    return <UnfriendDialog />
   case "requestSent":
     return <Button className="flex items-center gap-2" > <Clock className="text-sm" /> request sent </Button>  
   case "requestReceived":

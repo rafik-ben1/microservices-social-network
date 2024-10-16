@@ -1,8 +1,9 @@
 import React from 'react'
 import MainMenu from './MainMenu'
 import {Search} from "lucide-react"
+import { Link } from 'react-router-dom'
 
-export const Header = ({setIsSearching}: {setIsSearching : React.Dispatch<boolean>}) => {
+export const Header = () => {
 
   return (
 <div className="p-2 border-b  ">
@@ -11,7 +12,9 @@ export const Header = ({setIsSearching}: {setIsSearching : React.Dispatch<boolea
               <MainMenu /> 
               <h1 className=" text-xl text-primary font-semibold">Facemok</h1>
              </span>
-             <Search className='text-primary' onClick={()=> setIsSearching(true) } cursor="pointer" />                 
+             <Link to="search">
+             <Search className='text-primary'  cursor="pointer" />                              
+             </Link>
           </div>
         
         </div>

@@ -1,13 +1,13 @@
-import { Sidebar } from '@/components/Sidebar'
-import { Outlet} from 'react-router-dom'
+import MainRoutes from '@/routers/MainRoutes'
+import SidebarRoutes from '@/routers/SidebarRoutes'
 
 
 export default function Layout() {
 
   return (
     <div className="flex h-screen w-full bg-primary-foreground ">
-      <Sidebar />
-      <Outlet />
+        <SidebarRoutes />
+        <MainRoutes />
     </div>
   )
 }

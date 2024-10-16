@@ -5,12 +5,11 @@ import {ArrowLeft, Search} from "lucide-react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-const UserSearch = ({setIsSearching}: {setIsSearching : React.Dispatch<boolean>}) => {
+const UserSearch = () => {
   const {data, error, isLoading} = useGetUsers()
   const [, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const onGoBack = ()=> {
-    setIsSearching(false)
     setSearchParams({})
     navigate("/")
   } 
