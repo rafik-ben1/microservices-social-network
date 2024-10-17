@@ -6,8 +6,9 @@ export function useHandelFriendRequest(){
     const queryClient = useQueryClient()
     return useMutation({
       mutationFn : (requestId : string , isAccepting : boolean = true ) => {
-        let method : HttpMethods  = isAccepting ? "POST" : "DELETE" 
-        let fun = useFetchFunction<void>({url : `/friends/request/${requestId}`, method })
+        let method : HttpMethods  = isAccepting ? "POST" : "DELETE"
+        let additionalPath = isAccepting ? "recieved/" : "" 
+        let fun = useFetchFunction<void>({url : `/friends/request/${additionalPath + requestId}`, method })
         return fun()
       },
       onSuccess : () => {
