@@ -4,7 +4,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { ArrowLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ProfileActionButton from './ProfileActionButton'
-import { UserProfile } from 'oidc-client-ts'
+import { UserProfile } from './user.types'
 
 export const UserProfileHeader = ({user} :{user : UserProfile} ) => {
   const navigate = useNavigate()
@@ -13,7 +13,7 @@ export const UserProfileHeader = ({user} :{user : UserProfile} ) => {
     <Button onClick={()=> navigate(-1)} className="md:hidden" variant="ghost" size="icon"  > <ArrowLeft /> </Button>
     <Avatar className="w-20 h-20  ">
       <AvatarImage alt="User's avatar" src="/placeholder.svg?height=80&width=80" />
-      <AvatarFallback>{user?.firstname.at(0)}</AvatarFallback>
+      <AvatarFallback>{user.firstname.charAt(0)}</AvatarFallback>
     </Avatar>
     <div className="flex flex-col flex-grow">
       <div className="flex justify-between items-center">

@@ -9,7 +9,7 @@ export default function Profile() {
 
   return (
     <Card className= "grow rounded-none sm:p-4 ">
-     <UserProfileHeader  user={data} />
+     <UserProfileHeader  user={data!} />
       <UserProfileAttributes />
     </Card>
   )

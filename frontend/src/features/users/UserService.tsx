@@ -1,9 +1,8 @@
 import { useFetchFunction } from "@/hooks/useFetch";
 import { useQuery } from "@tanstack/react-query";
 import {useParams, useSearchParams } from "react-router-dom";
-import { User } from "./user.types";
+import { User, UserProfile } from "./user.types";
 import { useAuth } from "react-oidc-context";
-import { UserProfile } from "oidc-client-ts";
 
 export function useGetUsers() {
   const [searchParams] = useSearchParams();
