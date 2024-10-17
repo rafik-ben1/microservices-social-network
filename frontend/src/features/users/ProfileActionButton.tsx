@@ -4,6 +4,7 @@ import { useGetFriendshipStatus } from "../friends/FriendService"
 import HandelFriendRequest from "../friends/HandelFriendRequest"
 import UnfriendDialog from "../friends/UnfriendDialog"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useSendFriendRequest } from "../requests/FriendRequestService"
 
 
 
@@ -11,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 export default function ProfileActionButton(){ 
 
  const  {data, isLoading} = useGetFriendshipStatus()
+ const {mutate , isPending} = useSendFriendRequest()
  if(isLoading)
    return <Skeleton className="h-8 w-20" />;
  
@@ -24,6 +26,6 @@ export default function ProfileActionButton(){
   case "requestReceived":
     return <HandelFriendRequest />
   case "none":
-    return  <Button className="flex items-center gap-2" > <UserPlus  /> add friend  </Button>
+    return  <Button  onClick={()=> mutate() } disabled={isPending}  className="flex items-center gap-2" > <UserPlus  /> add friend  </Button>
           }
 }

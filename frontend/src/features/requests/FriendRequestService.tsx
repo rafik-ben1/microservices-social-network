@@ -1,6 +1,7 @@
 import { HttpMethods, useFetchFunction } from "@/hooks/useFetch"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { FriendRequest, FriendRequestType } from "./request.type"
+import { useParams } from "react-router-dom"
 
 export function useHandelFriendRequest(){
     const queryClient = useQueryClient()
@@ -22,4 +23,13 @@ export function useHandelFriendRequest(){
         queryKey: ["requests-"+type ],
         queryFn: useFetchFunction<FriendRequest[]>({ url: "/friends/requests/"+type }),
       });
+  }
+
+  export function useSendFriendRequest(){
+    const {id} = useParams()
+     
+    return useMutation({
+      mutationFn : useFetchFunction<void>({method : "POST" , url: "/friends/requests/"+id}),
+   
+    }) 
   }
