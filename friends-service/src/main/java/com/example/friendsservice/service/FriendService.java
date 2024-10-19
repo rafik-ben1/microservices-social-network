@@ -48,7 +48,7 @@ public class FriendService {
       var isRequestRecieved =  requestRepository.findBySentByAndSentTo(id, user);
       if (isRequestRecieved.isPresent()) {
         return FriendshipStatusResponse.builder().status(FriendshipStatus.REQUEST_RECIEVED)
-               .requestId(isRequestSent.get().getId().toString()).build();
+               .requestId(isRequestRecieved.get().getId().toString()).build();
       }
         
        return FriendshipStatusResponse.builder().status(FriendshipStatus.NONE).build();
