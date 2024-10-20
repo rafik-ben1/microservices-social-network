@@ -6,8 +6,9 @@ import { FriendRequestType } from "./request.type"
 
 const FriendsRequests = ({type}: {type : FriendRequestType}) => {
   const {data} = useGetFriendsRequests(type)
+  console.log(data)
   return (
-    data?.map(request => <FriendRequestRow type={type}
+    data?.content.map(request => <FriendRequestRow type={type}
                            request={request} key={request.id} />)
     
   )

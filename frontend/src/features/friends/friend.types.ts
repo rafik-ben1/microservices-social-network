@@ -1,6 +1,6 @@
 
 export interface FriendshipStatus {
-    status : "friends" | "requestSent" | "requestReceived" | "none" | "self",
-    requestId?: string
+    status : "friends" | "requestSent" | "requestRecieved" | "none" | "self",
+    requestId?: number
 }
 

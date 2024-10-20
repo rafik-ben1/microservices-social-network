@@ -19,7 +19,7 @@ export function useFetchFunction<T>({
   return async () => {
     const res = await fetch(BASE_API_URL + url, {
       method,
-       body : JSON.stringify(body),
+       body : body!== null ? JSON.stringify(body) : body,
       headers: {
         "Content-Type": type,
         Authorization: "Bearer " + token,

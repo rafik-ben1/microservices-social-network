@@ -3,7 +3,7 @@ import { User } from "../users/user.types";
 export interface FriendRequest {
     id : number;
     user : User;
-    sentAt : Date;
+    sentAt : string;
     type : FriendRequestType
 }
 

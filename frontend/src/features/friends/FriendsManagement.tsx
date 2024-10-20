@@ -27,7 +27,7 @@ export default function FriendsManagement() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="friends">Friends</SelectItem>
-            <SelectItem value="received">Received Requests </SelectItem>
+            <SelectItem value="recieved">Received Requests </SelectItem>
             <SelectItem value="sent">Sent Requests </SelectItem>
           </SelectContent>
         </Select>

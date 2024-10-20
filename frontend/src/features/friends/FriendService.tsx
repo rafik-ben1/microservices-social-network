@@ -1,5 +1,5 @@
 import { useFetchFunction } from "@/hooks/useFetch";
-import { useQuery} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import { User } from "../users/user.types";
 import { useParams } from "react-router-dom";
 import { FriendshipStatus } from "./friend.types";
@@ -28,5 +28,16 @@ export function useGetFriendshipStatus() {
          return fetchUser()
        },
     });
+}
+
+export function useUnfriend(){
+  const queryClient = useQueryClient()
+  const { id } = useParams();
+  return useMutation({
+    mutationFn : useFetchFunction<void>({url : "/friends/"+id,method:"DELETE"}),
+    onSuccess : () => {
+      queryClient.invalidateQueries({queryKey : ["friends-status",id]})
+    }
+  })
 }
 
