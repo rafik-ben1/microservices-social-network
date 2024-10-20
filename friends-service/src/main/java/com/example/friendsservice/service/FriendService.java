@@ -42,13 +42,13 @@ public class FriendService {
       var isRequestSent = requestRepository.findBySentByAndSentTo(user, id);
       if (isRequestSent.isPresent()) {
         return FriendshipStatusResponse.builder().status(FriendshipStatus.REQUEST_SENT)
-               .requestId(isRequestSent.get().getId().toString()).build();
+               .requestId(isRequestSent.get().getId()).build();
       }
       
       var isRequestRecieved =  requestRepository.findBySentByAndSentTo(id, user);
       if (isRequestRecieved.isPresent()) {
         return FriendshipStatusResponse.builder().status(FriendshipStatus.REQUEST_RECIEVED)
-               .requestId(isRequestRecieved.get().getId().toString()).build();
+               .requestId(isRequestRecieved.get().getId()).build();
       }
         
        return FriendshipStatusResponse.builder().status(FriendshipStatus.NONE).build();

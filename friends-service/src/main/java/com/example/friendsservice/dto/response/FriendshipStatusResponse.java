@@ -9,5 +9,5 @@ import lombok.Data;
 @Builder
 public class FriendshipStatusResponse{
    private FriendshipStatus status;
-   private String requestId;
+   private int requestId;
 }
