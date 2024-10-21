@@ -26,3 +26,9 @@ export interface Page<T> {
   empty: boolean;
 }
 
+
+export class AppError {
+  Status!: string;
+  StatusCode! : number;
+  messages! : string[]
+}

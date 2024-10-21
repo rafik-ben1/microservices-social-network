@@ -11,11 +11,11 @@ import { UserPlus, UserCheck, X } from "lucide-react";
 import { useHandelFriendRequest } from "./FriendRequestService.tsx";
 import { useState } from "react";
 
-const HandelFriendRequest = ({ requestId }: { requestId: number }) => {
-  const { mutate } = useHandelFriendRequest();
+const HandelFriendRequest = ({ requestId , userId }: { requestId: number, userId : string }) => {
+  const { mutate } = useHandelFriendRequest(userId);
   const [open, setOpen] = useState(false);
-  function handelSendRequet() {
-    mutate({ requestId, isAccepting: true });
+  function handelSendRequest(isAccepting : boolean) {
+    mutate({ requestId, isAccepting});
     setOpen(false);
   }
 
@@ -36,7 +36,7 @@ const HandelFriendRequest = ({ requestId }: { requestId: number }) => {
         <div className="flex flex-col gap-2 items-center">
           <span className="flex items-center gap-2">
             <Button
-              onClick={() => setOpen(false)}
+              onClick={() => handelSendRequest(false)}
               variant="outline"
               className="flex items-center gap-1"
             >
@@ -44,7 +44,7 @@ const HandelFriendRequest = ({ requestId }: { requestId: number }) => {
               <X /> Decline{" "}
             </Button>
             <Button
-              onClick={handelSendRequet}
+              onClick={()=>handelSendRequest(true)}
               className="flex items-center gap-1 "
             >
               {" "}
