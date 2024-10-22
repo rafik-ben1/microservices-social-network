@@ -30,8 +30,8 @@ public class RequestController {
      return requestService.getRecievedRequest(user, pageable);
     }
     @PostMapping("/recieved/{requestId}")
-    public void acceptRequest(@PathVariable int requestId){
-
+    void acceptRequest(@PathVariable("requestId") int requestId){
+      requestService.acceptRequest(requestId);
     }
 
     @GetMapping("/sent")

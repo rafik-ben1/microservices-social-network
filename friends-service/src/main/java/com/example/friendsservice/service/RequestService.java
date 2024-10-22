@@ -5,6 +5,7 @@ import com.example.friendsservice.dto.RequestType;
 import com.example.friendsservice.dto.response.RequestResponse;
 import com.example.friendsservice.kafka.EventPublisher;
 import com.example.friendsservice.model.Friendship;
+import com.example.friendsservice.repository.FriendshipRepository;
 import com.example.friendsservice.user.UserClient;
 import com.example.friendsservice.user.UserRep;
 import com.example.friendsservice.mapper.RequestMapper;
@@ -24,6 +25,7 @@ public class RequestService {
     private final RequestMapper mapper;
     private final ChatClient chatClient;
     private final EventPublisher eventPublisher;
+    private final FriendshipRepository friendshipRepository;
 
     public void sendFriendRequest(String from , String to){
         Request request = Request.builder()
@@ -39,6 +41,8 @@ public class RequestService {
         Friendship friendship = Friendship.builder()
                 .users(List.of(request.getSentBy(),request.getSentTo()))
                 .build();
+        friendshipRepository.save(friendship);
+        requestRepository.deleteById(requestId);
         CreateChatRequest createChatRequest = CreateChatRequest.builder()
                 .participant(friendship.getUsers())
                 .build();

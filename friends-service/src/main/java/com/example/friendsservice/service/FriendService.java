@@ -9,6 +9,8 @@ import com.example.friendsservice.repository.FriendshipRepository;
 import com.example.friendsservice.repository.RequestRepository;
 import com.example.friendsservice.user.UserClient;
 import com.example.friendsservice.user.UserRep;
+
+import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class FriendService {
      var friendships =  fRepository.findByUsersContaining(user,pageable);
       return friendships.map(friendship -> {
         var friendId = friendship.getUsers().stream()
-              .filter(id -> id.equals(user)).findFirst().get();
+              .filter(id -> !id.equals(user)).findFirst().get();
               return userClient.findUserById(friendId);
     });
    
@@ -55,7 +57,9 @@ public class FriendService {
     }
    
     public void unfriend(String user,String id){
-      fRepository.deleteByUsers(user, id);
+      var friendship = fRepository.findByUsersIn(List.of(user, id))
+                               .orElseThrow(NotFoundException::new);
+      fRepository.delete(friendship);                         
     }
 
 }
