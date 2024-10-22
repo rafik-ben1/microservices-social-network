@@ -16,7 +16,7 @@ public class ChatMapper {
        var chat = Chat.builder()
                 .isGroupChat(dto.getIsGroupChat())
                 .build();
-       chat.getParticipants().addAll(dto.getParticipant());
+       chat.setParticipants(dto.getParticipant());
        return chat;
     }
     public ChatResponseDto mapToResponse(Chat chat , List<UserRep> participants){
