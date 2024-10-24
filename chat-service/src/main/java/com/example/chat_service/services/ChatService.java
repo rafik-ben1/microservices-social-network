@@ -18,7 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,12 @@ public class ChatService {
     private final SimpMessagingTemplate template;
 
     public void createChat(CreatChatDto dto){
+        if(!dto.isGroupChat()){
+            var chatExists = repository.findByParticipants(dto.participants()).isPresent();
+            if(chatExists)
+              return;
+        }
+
         Chat chat = repository.save(mapper.mapToEntity(dto));
         Message msg = Message.builder()
                 .sentAt(LocalDateTime.now())
@@ -44,7 +49,7 @@ public class ChatService {
         chat.setLastMessage(savedMsg);
        var savedChat = repository.save(chat);
 
-        dto.getParticipant().forEach(participant -> {
+        dto.participants().forEach(participant -> {
             template.convertAndSend(String.format("/topic/users/%s",participant), savedChat);
                 });
     }

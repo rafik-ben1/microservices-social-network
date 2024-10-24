@@ -3,8 +3,6 @@ package com.example.chat_service.models;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class Chat {
     private Message lastMessage;
     private String chatName;
     private Boolean isGroupChat;
+    @Builder.Default
     private List<String> participants = new ArrayList<>();
 
 }

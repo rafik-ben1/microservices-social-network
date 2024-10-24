@@ -1,14 +1,12 @@
 package com.example.chat_service.dto;
 
-import lombok.Builder;
-import lombok.Data;
-
 import java.util.List;
 
-@Builder
-@Data
-public class CreatChatDto {
-    private List<String> participant;
-    private Boolean isGroupChat;
-    private String chatName;
-}
+
+public record CreatChatDto(
+     List<String> participants,
+     boolean isGroupChat,    
+     String chatName
+) {} 
+     
+      
