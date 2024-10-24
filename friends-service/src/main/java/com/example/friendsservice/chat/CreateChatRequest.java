@@ -8,6 +8,6 @@ import java.util.List;
 @Builder
 @Data
 public class CreateChatRequest {
-    private List<String> participant;
+    private List<String> participants;
     private final Boolean isGroupChat = false;
 }
