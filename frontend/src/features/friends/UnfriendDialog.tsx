@@ -8,7 +8,7 @@ import {
   DialogClose,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Check, X } from "lucide-react";
+import { Check, X , UserCheck } from "lucide-react";
 import { useUnfriend } from "./FriendService";
 import { useState } from "react";
 
@@ -23,7 +23,7 @@ const UnfriendDialog = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive"> unfriend </Button>
+        <Button variant="outline"> <span className="flex items-center gap-1" > <UserCheck /> friends </span> </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -37,7 +37,6 @@ const UnfriendDialog = () => {
         </DialogHeader>
         <div className="flex flex-col gap-2 items-center">
           <span className="flex items-center gap-2">
-            Dialog
             <DialogClose asChild>
               <Button variant="outline" className="flex items-center gap-1">
                 {" "}

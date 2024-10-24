@@ -4,7 +4,6 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 const UserProfileSkeleton = () => {
   const navigate = useNavigate();
@@ -32,12 +31,7 @@ const UserProfileSkeleton = () => {
         </div>
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid gap-2">
-          <h3 className="font-semibold">Bio</h3>
            <Skeleton className=" w-full h-10 " />
-        </div>
-        <div className="grid gap-2">
-          <h3 className="font-semibold">Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div className="flex items-center gap-2">
               <Skeleton className="h-6 w-10"  />
@@ -46,9 +40,6 @@ const UserProfileSkeleton = () => {
             <Skeleton className="p-3"/>
             <Skeleton className="p-3" />
           </div>
-        </div>
-        <div className="grid gap-2">
-          <h3 className="font-semibold">Interests</h3>
           <div className="flex flex-wrap gap-2">
             <Skeleton className="w-12 h-8 rounded-sm" />
             <Skeleton className="w-12 h-8 rounded-sm "/>
@@ -56,7 +47,6 @@ const UserProfileSkeleton = () => {
             <Skeleton className="w-12 h-8 rounded-sm "/>
             <Skeleton className="w-12 h-8 rounded-sm "/>
           </div>
-        </div>
       </CardContent>
     </>
   );

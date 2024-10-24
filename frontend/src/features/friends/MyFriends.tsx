@@ -21,7 +21,7 @@ const MyFriends = () => {
               {friend.firstname + " " + friend.lastname}
             </span>
           </div>
-          <Button variant="destructive" size="icon">
+          <Button variant="destructive" >
             unfriend
           </Button>
         </div>

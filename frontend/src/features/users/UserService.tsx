@@ -1,33 +1,37 @@
 import { useFetchFunction } from "@/hooks/useFetch";
 import { useQuery } from "@tanstack/react-query";
-import {useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { User, UserProfile } from "./user.types";
 import { useAuth } from "react-oidc-context";
 
 export function useGetUsers() {
+  const queryFn = useFetchFunction<User[]>();
   const [searchParams] = useSearchParams();
-  const search = searchParams.get("search")
+  const search = searchParams.get("search");
   return useQuery({
-    queryKey: ["users",search],
-    queryFn: useFetchFunction<User[]>({ url: "/users?search="+ search }),
+    queryKey: ["users", search],
+    queryFn: () => queryFn({ url: "/users?search=" + search }),
   });
 }
 
-export function useGetCurrentUser(){
-  const id = useAuth().user?.profile.sub
+export function useGetCurrentUser() {
+  const queryFn = useFetchFunction<UserProfile>();
+  const id = useAuth().user?.profile.sub;
   return useQuery({
-    queryKey : ["me"] ,
-    queryFn: useFetchFunction<UserProfile>({url:"/users/"+id}),
-    refetchInterval : Infinity,
+    queryKey: ["me"],
+    queryFn: () => queryFn({url : "/users/"+id+"/profile"}) , 
+    refetchInterval: Infinity,
     refetchOnMount: false,
-    enabled:!!id
-  })
+    enabled: !!id,
+  });
 }
 
-export function useGetUser(){
-  const {id} = useParams()
+export function useGetUser() {
+  const { id } = useParams();
+  const queryFn = useFetchFunction<UserProfile>();
+
   return useQuery({
-    queryKey : ["user",id] ,
-    queryFn: useFetchFunction<UserProfile>({url:"/users/"+id})
-  })
+    queryKey: ["user", id],
+         queryFn: () => queryFn({url : "/users/"+id+"/profile"}) 
+  });
 }

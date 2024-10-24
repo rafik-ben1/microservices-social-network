@@ -8,14 +8,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { UserPlus, UserCheck, X } from "lucide-react";
-import { useHandelFriendRequest } from "./FriendRequestService.tsx";
+import { useAcceptFriendRequest } from "./FriendRequestService.tsx";
 import { useState } from "react";
 
 const HandelFriendRequest = ({ requestId , userId }: { requestId: number, userId : string }) => {
-  const { mutate } = useHandelFriendRequest(userId);
+  const { mutate } = useAcceptFriendRequest(userId);
   const [open, setOpen] = useState(false);
   function handelSendRequest(isAccepting : boolean) {
-    mutate({ requestId, isAccepting});
+    mutate({ requestId});
     setOpen(false);
   }
 

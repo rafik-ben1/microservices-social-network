@@ -9,10 +9,12 @@ import {
 } from "./features/auth/OidcConfiguration.ts";
 import AuthWrapper from "./features/auth/AuthWrapper.tsx";
 import TanstackQueryProvider from "./lib/TanstackQueryProvider.tsx";
+import {Toaster} from "./components/ui/toaster.tsx"
 
-
+  
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <Toaster/>
     <AuthProvider userManager={userManager}  onSigninCallback={onSigninCallback}>
       <TanstackQueryProvider>
         <AuthWrapper>

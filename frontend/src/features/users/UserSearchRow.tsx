@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useNavigate } from "react-router-dom"
-import { useGetUser } from "./UserService"
+import { User } from "./user.types"
 
 const UserSearchRow = ({user} : {user : User} ) => {
   const navigate = useNavigate()

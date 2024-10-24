@@ -27,8 +27,3 @@ export interface Page<T> {
 }
 
 
-export class AppError {
-  Status!: string;
-  StatusCode! : number;
-  messages! : string[]
-}
