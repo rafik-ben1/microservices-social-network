@@ -44,10 +44,10 @@ public class RequestService {
         friendshipRepository.save(friendship);
         requestRepository.deleteById(requestId);
         CreateChatRequest createChatRequest = CreateChatRequest.builder()
-                .participant(friendship.getUsers())
+                .participants(friendship.getUsers())
                 .build();
         chatClient.createChat(createChatRequest);
-        eventPublisher.sendFriendRequestEvent(request.getSentBy(), request.getSentTo(),true);
+        eventPublisher.sendFriendRequestEvent(request.getSentTo(), request.getSentBy(),true);
 
     }
 
