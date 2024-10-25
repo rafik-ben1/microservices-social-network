@@ -3,6 +3,8 @@ import com.example.userservice.dto.request.UpdateProfile;
 import com.example.userservice.dto.response.UserProfileResponse;
 import com.example.userservice.dto.response.UserResponse;
 import com.example.userservice.service.UserService;
+
+import jakarta.validation.Valid;
 import jakarta.ws.rs.QueryParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,7 @@ public class UsersController {
    }
 
    @PatchMapping("/profile")
-    public UserProfileResponse updateProfile(@RequestHeader("user") String user, @RequestBody UpdateProfile userDto ){
+    public UserProfileResponse updateProfile(@RequestHeader("user") String user, @RequestBody @Valid UpdateProfile userDto ){
         
        return userService.updateProfile(user, userDto);
    }
