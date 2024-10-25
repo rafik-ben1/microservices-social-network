@@ -5,23 +5,23 @@ import HandelFriendRequest from "../requests/HandelFriendRequest"
 import UnfriendDialog from "../friends/UnfriendDialog"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useSendFriendRequest } from "../requests/FriendRequestService"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 
 
 
 export default function ProfileActionButton(){ 
-
  const  {data, isLoading} = useGetFriendshipStatus()
  const {mutate , isPending} = useSendFriendRequest()
  const {id} = useParams();
+ const navigate = useNavigate() 
 
  if(isLoading)
    return <Skeleton className="h-8 w-20 rounded-sm " />;
  
  switch (data?.status) {
   case "self":
-    return <Button className="flex items-center gap-2"> <Edit className="text-sm" /> Edit profile </Button>
+    return <Button onClick={()=>navigate("/update")} className="flex items-center gap-2"> <Edit className="text-sm" /> Edit profile </Button>
   case "friends":
     return <UnfriendDialog />
   case "requestSent":

@@ -1,3 +1,6 @@
+import { z } from "zod";
+
+
 export interface User {
   id: string;
   username: string;
@@ -13,9 +16,43 @@ export interface UserProfile extends User {
   reltationshipStatus?: ReltationshipStatus ;
   bornAt?: Date;
   address? : string;
+  hobbies? : string[];
 }
 
 
 export type ReltationshipStatus = "married" | "single" | "in a relationship" | "married" | "divorced"
 
+
+
+export const ProfileFormSchema = z.object({
+  firstname: z
+    .string()
+    .min(1, { message: "Firstname is required" })
+    .max(50, { message: "Firstname should be 50 characters or less" }),
+  lastname: z
+    .string()
+    .min(1, { message: "Lastname is required" })
+    .max(50, { message: "Lastname should be 50 characters or less" }),
+  bio: z
+    .string()
+    .max(300, { message: "Bio should be 300 characters or less" })
+    .optional(),
+  bornAt: z
+    .date()
+    .refine((date) => date < new Date() && date > new Date("1900-01-01"), {
+      message: "Please enter a valid date of birth",
+    }).optional(),
+  address: z
+    .string()
+    .min(1, { message: "Please enter a valid address" })
+    .max(100, { message: "Address should be 100 characters or less" }).optional(),
+  relationshipStatus: z.enum([
+    "single",
+    "in-relationship",
+    "married",
+    "divorced",
+    "widowed",
+  ]),
+  hobbies: z.array(z.string()).optional(), 
+});
 

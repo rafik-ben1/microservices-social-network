@@ -28,8 +28,10 @@ export function useGetCurrentUser() {
 
 export function useGetUser() {
   const { id } = useParams();
+  const currentId = useAuth().user?.profile.sub;
   const queryFn = useFetchFunction<UserProfile>();
-
+  if (id === currentId)
+    return useGetCurrentUser() 
   return useQuery({
     queryKey: ["user", id],
          queryFn: () => queryFn({url : "/users/"+id+"/profile"}) 
