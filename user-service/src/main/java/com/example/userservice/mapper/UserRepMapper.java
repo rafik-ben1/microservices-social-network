@@ -37,7 +37,7 @@ public class UserRepMapper {
                 .lastname(userRepresentation.getLastName())
                 .avatar(userRepresentation.firstAttribute("avatar"))
                 .address(userRepresentation.firstAttribute("address"))
-                .bio(userRepresentation.firstAttribute("address"))
+                .bio(userRepresentation.firstAttribute("bio"))
                 .bornAt(bornAt)
                 .gender(gender)
                 .relationshipStatus(relationshipStatus)
