@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectInterests from "@/components/SelectInterests";
 import { useGetCurrentUser, useUpdateProfile } from "./UserService";
 import {
@@ -42,7 +42,22 @@ const UpdateProfileForm = () => {
   const form = useForm<ProfileUpdateT>({
     resolver: zodResolver(ProfileFormSchema),
   })
+  useEffect(() => {
+    if (data) {
+      form.reset({
+        firstname: data.firstname || "",
+        lastname: data.lastname || "",
+        bio: data.bio || "",
+        bornAt: data.bornAt ? new Date(data.bornAt) : undefined,
+        address: data.address || "",
+        gender: data.gender || undefined,
+        relationshipStatus: data.reltationshipStatus || undefined,
+      });
+      setSelectedHobbies(data.hobbies || []);
+    }
+  }, [data, form]);
 
+ 
   function handelSubmit (data : ProfileUpdateT ){
     mutate({...data, hobbies: selectedHobbies})
   }
@@ -67,7 +82,7 @@ const UpdateProfileForm = () => {
           )}
         />
         <FormField
-          control={form.control} defaultValue={data?.lastname ?? ""}
+          control={form.control} 
           name="lastname" 
           render={({ field }) => (
             <FormItem>
@@ -81,7 +96,7 @@ const UpdateProfileForm = () => {
         />
 
         <FormField
-          control={form.control} defaultValue={data?.bio ?? ""}
+          control={form.control} 
           name="bio"
           render={({ field }) => (
             <FormItem>
@@ -95,7 +110,7 @@ const UpdateProfileForm = () => {
         />
 
         <FormField
-          control={form.control} defaultValue={ data?.bornAt ? new Date(data.bornAt) : undefined }
+          control={form.control} 
           name="bornAt"
           render={({ field }) => (
             <FormItem className="flex flex-col">
@@ -140,7 +155,7 @@ const UpdateProfileForm = () => {
         />
 
         <FormField
-          control={form.control} defaultValue={data?.address ?? ""}
+          control={form.control} 
           name="address"
           render={({ field }) => (
             <FormItem>

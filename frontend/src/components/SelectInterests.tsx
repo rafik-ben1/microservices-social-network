@@ -67,7 +67,7 @@ const SelectInterests = ({selected, setSelected} : SelectInterestsProps) => {
           {selected.map((interest) => (
              <Badge key={interest} variant="secondary" className="text-sm">
               {interest}
-               <Button variant="ghost" size="sm" className="h-auto p-0 ml-2" >
+               <Button onClick={()=>setSelected(selected.filter(val => val !== interest ))} type="button" variant="ghost" size="sm" className="h-auto p-0 ml-2" >
                  <X className="h-4 w-4" />
                </Button>
               

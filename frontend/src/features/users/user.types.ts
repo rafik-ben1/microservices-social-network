@@ -33,7 +33,7 @@ export const ProfileFormSchema = z.object({
     .string()
     .min(1, { message: "Lastname is required" })
     .max(50, { message: "Lastname should be 50 characters or less" }),
-    gender : z.enum(["male" , "female"]).optional(),
+    gender : z.enum(["male" , "female"],{required_error : "Gender is required"}),
   bio: z
     .string()
     .max(300, { message: "Bio should be 300 characters or less" })
@@ -42,7 +42,7 @@ export const ProfileFormSchema = z.object({
     .date()
     .refine((date) => date < new Date() && date > new Date("1900-01-01"), {
       message: "Please enter a valid date of birth",
-    }).optional(),
+    }),
   address: z
     .string()
     .max(100, { message: "Address should be 100 characters or less" }).optional(),
@@ -52,7 +52,7 @@ export const ProfileFormSchema = z.object({
     "married",
     "divorced",
     "engaged"
-  ]).optional(),
+  ], {required_error : "Social status is required"}),
   hobbies: z.array(z.string()).optional(),
 
 });

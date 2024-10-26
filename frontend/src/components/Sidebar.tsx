@@ -3,8 +3,10 @@ import { Outlet, useLocation} from 'react-router-dom'
 import { Header } from './Header'
 
 export const Sidebar = () => {
+ 
+  const {pathname} = useLocation()
+ const isSearching = pathname.startsWith("/search")
 
- const isSearching = useLocation().pathname.startsWith("/search")
   return (
  <div className={clsx(" bg-background border-r  " )}>
    {!isSearching && <Header />}

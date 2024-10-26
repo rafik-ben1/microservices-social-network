@@ -22,8 +22,8 @@ export function useGetCurrentUser() {
     queryKey: ["me"],
     queryFn: () => queryFn({url : "/users/"+id+"/profile"}) , 
     refetchInterval: Infinity,
-    refetchOnMount: false,
     enabled: !!id,
+    
   });
 }
 
