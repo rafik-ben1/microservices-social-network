@@ -1,6 +1,8 @@
-export const BASE_API_URL = "http://localhost:8222/api/v1";
+export const BASE_URL = "http://localhost:8222/"
 
+export const BASE_API_URL = BASE_URL + "api/v1";
 
+export const BASE_AVATARS = BASE_URL + "/upload/avatars/"
 export const INTERESTS = [
     "Technology",
     "Travel",

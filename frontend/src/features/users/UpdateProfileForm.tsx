@@ -195,7 +195,7 @@ const UpdateProfileForm = () => {
           render={({ field }) => (
             <FormItem className=" col-span-2 mb-3 md:col-span-1 " >
               <FormLabel>Social status</FormLabel>
-              <Select value={field.value} onValueChange={field.onChange}>
+              <Select defaultValue={data?.reltationshipStatus} value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select your social status" />

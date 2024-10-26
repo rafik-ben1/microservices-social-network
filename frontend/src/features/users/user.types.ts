@@ -14,7 +14,7 @@ export interface UserProfile extends User {
   bio?: string;
   gender?: "male" | "female";
   reltationshipStatus?: ReltationshipStatus ;
-  bornAt?: Date;
+  bornAt?: string;
   address? : string;
   hobbies? : string[];
 }

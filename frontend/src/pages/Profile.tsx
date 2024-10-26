@@ -13,7 +13,7 @@ export default function Profile() {
       : ( 
 	 <>
           <UserProfileHeader  user={data!} />
-          <UserProfileAttributes />
+          <UserProfileAttributes user={data!} />
         </>
 	)}
     </Card>

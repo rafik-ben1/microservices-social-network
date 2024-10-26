@@ -12,7 +12,7 @@ export function useGetUsers() {
   return useQuery({
     queryKey: ["users", search],
     queryFn: () => queryFn({ url: "/users?search=" + search }),
-    enabled : !!search
+    enabled: !!search,
   });
 }
 
@@ -21,10 +21,9 @@ export function useGetCurrentUser() {
   const id = useAuth().user?.profile.sub;
   return useQuery({
     queryKey: ["me"],
-    queryFn: () => queryFn({url : "/users/"+id+"/profile"}) , 
+    queryFn: () => queryFn({ url: "/users/" + id + "/profile" }),
     refetchInterval: Infinity,
     enabled: !!id,
-    
   });
 }
 
@@ -32,28 +31,51 @@ export function useGetUser() {
   const { id } = useParams();
   const currentId = useAuth().user?.profile.sub;
   const queryFn = useFetchFunction<UserProfile>();
-  if (id === currentId)
-    return useGetCurrentUser() 
+  if (id === currentId) return useGetCurrentUser();
   return useQuery({
     queryKey: ["user", id],
-         queryFn: () => queryFn({url : "/users/"+id+"/profile"}) 
+    queryFn: () => queryFn({ url: "/users/" + id + "/profile" }),
   });
 }
 
-export function useUpdateProfile(){
-  const queryClient = useQueryClient()
-  const mutationFn = useFetchFunction<UserProfile>()
-  const {toast} = useToast()
+export function useUpdateProfile() {
+  const queryClient = useQueryClient();
+  const mutationFn = useFetchFunction<UserProfile>();
+  const { toast } = useToast();
   return useMutation({
-    mutationFn : (body : ProfileUpdateT) => mutationFn({url: "/users/profile" , method : "PATCH", body}),
-    onSuccess : (data) => {
-      console.log(data)
-      queryClient.invalidateQueries({queryKey : ["me"]})
+    mutationFn: (body: ProfileUpdateT) =>
+      mutationFn({ url: "/users/profile", method: "PATCH", body }),
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries({ queryKey: ["me"] });
       toast({
-        title : "Success!",
-        description : "Profile has been succussfuly updated",
-        className : "bg-green-400"
-      })
-    }
-  })
+        title: "Success!",
+        description: "Profile has been succussfuly updated",
+        className: "bg-green-400 text-white",
+      });
+    },
+  });
+}
+
+export function useUpdateAvatar() {
+  const mutationFn = useFetchFunction<string>();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: FormData) =>
+      mutationFn({
+        url: "/users/avatar",
+        method: "PATCH",
+        body: data,
+	isFormData : true
+      }),
+    onSuccess() {
+      toast({
+        title: "Success!",
+        description: "Avatar has been succussfuly updated",
+        className: "bg-green-400 text-white ",
+      });
+      queryClient.invalidateQueries({ queryKey: ["me"] });
+    },
+  });
 }

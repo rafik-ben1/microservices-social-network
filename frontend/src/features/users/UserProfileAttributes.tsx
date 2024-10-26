@@ -1,47 +1,45 @@
 import { CardContent } from "@/components/ui/card"
 import { User, CalendarDays, Users, MapPin} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { UserProfile } from "./user.types"
+import { format } from "date-fns"
+import { getAge } from "@/common/helpers"
 
-export const UserProfileAttributes = () => {
+export const UserProfileAttributes = ({user} :{user : UserProfile}) => {
   return (
     <CardContent className="grid gap-4">
-    <div className="grid gap-2">
+    {user.bio &&<div className="grid gap-2">
       <h3 className="font-semibold">Bio</h3>
       <p className="text-sm text-muted-foreground">
-        Passionate developer, coffee enthusiast, and avid traveler. Always learning and exploring new technologies.
+        {user.bio}
       </p>
-    </div>
+    </div>}
     <div className="grid gap-2">
-      <h3 className="font-semibold">Details</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-        <div className="flex items-center gap-2">
+        {user.gender && <div className="flex items-center gap-2">
           <User className="w-4 h-4 text-muted-foreground" />
-          <span>Male</span>
-        </div>
-        <div className="flex items-center gap-2">
+         <span>{user.gender}</span>
+        </div>}
+        {user.bornAt && <div className="flex items-center gap-2">
           <CalendarDays className="w-4 h-4 text-muted-foreground" />
-          <span>Born April 15, 1990 (33 years old)</span>
-        </div>
-        <div className="flex items-center gap-2">
+          <span>Born {format(new Date(user.bornAt),"PPP")} ({getAge(user.bornAt)} years old)</span>
+        </div>}
+        {user.reltationshipStatus && <div className="flex items-center gap-2">
           <Users className="w-4 h-4 text-muted-foreground" />
-          <span>In a relationship</span>
-        </div>
-        <div className="flex items-center gap-2">
+          <span>{user.reltationshipStatus}</span>
+        </div>}
+        {user.address && <div className="flex items-center gap-2">
           <MapPin className="w-4 h-4 text-muted-foreground" />
-          <span>San Francisco, CA</span>
-        </div>
+          <span>{user.address}</span>
+        </div>}
       </div>
     </div>
-    <div className="grid gap-2">
-      <h3 className="font-semibold">Interests</h3>
+   {user.hobbies?.length && <div className="grid gap-2">
+      <h3 className="font-semibold">Hobbies</h3>
       <div className="flex flex-wrap gap-2">
-        <Badge variant="secondary">Programming</Badge>
-        <Badge variant="secondary" >Travel</Badge>
-        <Badge variant="secondary" >Photography</Badge>
-        <Badge variant="secondary" >Coffee</Badge>
-        <Badge variant="secondary" >Music</Badge>
+        {user.hobbies.map(hobbie => <Badge variant="secondary">{hobbie}</Badge>)}
       </div>
-    </div>
+    </div>}
   </CardContent>
 )
 }
