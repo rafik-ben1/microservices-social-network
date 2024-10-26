@@ -32,6 +32,7 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import {ProfileFormSchema, ProfileUpdateT} from "./user.types";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const UpdateProfileForm = () => {
   const { data } = useGetCurrentUser();
@@ -63,20 +64,17 @@ const UpdateProfileForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handelSubmit)} className="py-4 space-y-6">
-        <div className=" grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-2 " >
+      <form onSubmit={form.handleSubmit(handelSubmit)} className="py-4 space-y-2">
+        <ScrollArea className=" grid grid-cols-1 gap-4 md:gap-8  " >
         <FormField
           control={form.control} defaultValue={data?.firstname ?? ""}
           name="firstname"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className=" col-span-2 mb-3 md:col-span-1 " >
               <FormLabel>Firstname</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your firstname" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -85,7 +83,7 @@ const UpdateProfileForm = () => {
           control={form.control} 
           name="lastname" 
           render={({ field }) => (
-            <FormItem>
+            <FormItem className=" col-span-2 mb-3 md:col-span-1 " >
               <FormLabel>Lastname</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your Lastname" {...field} />
@@ -99,7 +97,7 @@ const UpdateProfileForm = () => {
           control={form.control} 
           name="bio"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className=" col-span-2 mb-3 md:col-span-1 " >
               <FormLabel>Bio</FormLabel>
               <FormControl>
                 <Textarea placeholder="Tell us about your self" {...field} />
@@ -113,7 +111,7 @@ const UpdateProfileForm = () => {
           control={form.control} 
           name="bornAt"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
+            <FormItem className=" col-span-2 mb-3 md:col-span-1 ">
               <FormLabel>Date of birth</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
@@ -158,7 +156,7 @@ const UpdateProfileForm = () => {
           control={form.control} 
           name="address"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className=" col-span-2 mb-3 md:col-span-1 " >
               <FormLabel>Address</FormLabel>
               <FormControl>
                 <Input placeholder="where do you currently live" {...field} />
@@ -167,11 +165,11 @@ const UpdateProfileForm = () => {
             </FormItem>
           )}
         />
-              <FormField
+          { !data?.gender &&    <FormField
           control={form.control} 
           name="gender"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className=" col-span-2 mb-3 md:col-span-1 " >
               <FormLabel>Gender</FormLabel>
               <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
@@ -184,15 +182,18 @@ const UpdateProfileForm = () => {
                   <SelectItem value="female">Female</SelectItem>
                 </SelectContent>
               </Select>
+              <FormDescription>
+                Warning : You cannot change gender once you set it
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
-        />
+        />}
         <FormField
           control={form.control} 
           name="relationshipStatus"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className=" col-span-2 mb-3 md:col-span-1 " >
               <FormLabel>Social status</FormLabel>
               <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
@@ -219,8 +220,8 @@ const UpdateProfileForm = () => {
           selected={selectedHobbies}
           setSelected={setSelectedHobbies}
         />
-        </div>
-        <Button disabled ={isPending} type="submit" className="w-full">
+        </ScrollArea>
+        <Button disabled ={isPending} type="submit" className="w-full mt-4 ">
         Save Profile
       </Button>
       </form>

@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useGetMyFriends } from "./FriendService";import UserRowSkeleton from "../users/UserRowSkeleton";
-import { Button } from "@/components/ui/button";
+import { useGetMyFriends } from "./FriendService";
+import UserRowSkeleton from "../users/UserRowSkeleton";
 import {useNavigate} from "react-router-dom"
 
 const MyFriends = () => {

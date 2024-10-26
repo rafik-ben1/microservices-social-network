@@ -8,10 +8,11 @@ import { useToast } from "@/hooks/use-toast";
 export function useGetUsers() {
   const queryFn = useFetchFunction<User[]>();
   const [searchParams] = useSearchParams();
-  const search = searchParams.get("search");
+  const search = searchParams.get("q");
   return useQuery({
     queryKey: ["users", search],
     queryFn: () => queryFn({ url: "/users?search=" + search }),
+    enabled : !!search
   });
 }
 
