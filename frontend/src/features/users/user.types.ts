@@ -20,7 +20,7 @@ export interface UserProfile extends User {
 }
 
 
-export type ReltationshipStatus = "married" | "single" | "in a relationship" | "married" | "divorced"
+export type ReltationshipStatus = "married" | "engaged" | "single" | "in a relationship" |  "divorced"
 
 
 
@@ -33,6 +33,7 @@ export const ProfileFormSchema = z.object({
     .string()
     .min(1, { message: "Lastname is required" })
     .max(50, { message: "Lastname should be 50 characters or less" }),
+    gender : z.enum(["male" , "female"]).optional(),
   bio: z
     .string()
     .max(300, { message: "Bio should be 300 characters or less" })
@@ -44,15 +45,19 @@ export const ProfileFormSchema = z.object({
     }).optional(),
   address: z
     .string()
-    .min(1, { message: "Please enter a valid address" })
     .max(100, { message: "Address should be 100 characters or less" }).optional(),
   relationshipStatus: z.enum([
     "single",
-    "in-relationship",
+    "in a relationship",
     "married",
     "divorced",
-    "widowed",
-  ]),
-  hobbies: z.array(z.string()).optional(), 
+    "engaged"
+  ]).optional(),
+  hobbies: z.array(z.string()).optional(),
+
 });
+
+
+export type ProfileUpdateT = z.infer<typeof ProfileFormSchema>
+
 

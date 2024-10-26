@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import SelectInterests from "@/components/SelectInterests";
-import { useGetCurrentUser } from "./UserService";
+import { useGetCurrentUser, useUpdateProfile } from "./UserService";
 import {
   Form,
   FormControl,
@@ -31,22 +31,27 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
-import { z } from "zod";
-import {ProfileFormSchema} from "./user.types";
+import {ProfileFormSchema, ProfileUpdateT} from "./user.types";
 
 const UpdateProfileForm = () => {
   const { data } = useGetCurrentUser();
+  const {mutate , isPending} = useUpdateProfile()
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>(
     data?.hobbies ?? []
   );
-  const form = useForm<z.infer<typeof ProfileFormSchema>>({
+  const form = useForm<ProfileUpdateT>({
     resolver: zodResolver(ProfileFormSchema),
   })
+
+  function handelSubmit (data : ProfileUpdateT ){
+    mutate({...data, hobbies: selectedHobbies})
+  }
   return (
     <Form {...form}>
-      <div className="grid grid-cols-1 gap-4 md:gap-12 md:grid-cols-2 ">
+      <form onSubmit={form.handleSubmit(handelSubmit)} className="py-4 space-y-6">
+        <div className=" grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-2 " >
         <FormField
-          control={form.control}
+          control={form.control} defaultValue={data?.firstname ?? ""}
           name="firstname"
           render={({ field }) => (
             <FormItem>
@@ -62,8 +67,8 @@ const UpdateProfileForm = () => {
           )}
         />
         <FormField
-          control={form.control}
-          name="lastname"
+          control={form.control} defaultValue={data?.lastname ?? ""}
+          name="lastname" 
           render={({ field }) => (
             <FormItem>
               <FormLabel>Lastname</FormLabel>
@@ -76,7 +81,7 @@ const UpdateProfileForm = () => {
         />
 
         <FormField
-          control={form.control}
+          control={form.control} defaultValue={data?.bio ?? ""}
           name="bio"
           render={({ field }) => (
             <FormItem>
@@ -90,7 +95,7 @@ const UpdateProfileForm = () => {
         />
 
         <FormField
-          control={form.control}
+          control={form.control} defaultValue={ data?.bornAt ? new Date(data.bornAt) : undefined }
           name="bornAt"
           render={({ field }) => (
             <FormItem className="flex flex-col">
@@ -135,7 +140,7 @@ const UpdateProfileForm = () => {
         />
 
         <FormField
-          control={form.control}
+          control={form.control} defaultValue={data?.address ?? ""}
           name="address"
           render={({ field }) => (
             <FormItem>
@@ -147,12 +152,33 @@ const UpdateProfileForm = () => {
             </FormItem>
           )}
         />
+              <FormField
+          control={form.control} 
+          name="gender"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Gender</FormLabel>
+              <Select value={field.value} onValueChange={field.onChange}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your gender" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="male">Male</SelectItem>
+                  <SelectItem value="female">Female</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
-          control={form.control}
+          control={form.control} 
           name="relationshipStatus"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Bio</FormLabel>
+              <FormLabel>Social status</FormLabel>
               <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
@@ -161,12 +187,12 @@ const UpdateProfileForm = () => {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="single">Single</SelectItem>
-                  <SelectItem value="in-relationship">
+                  <SelectItem value="in a relationship">
                     In a Relationship
                   </SelectItem>
                   <SelectItem value="married">Married</SelectItem>
                   <SelectItem value="divorced">Divorced</SelectItem>
-                  <SelectItem value="widowed">Widowed</SelectItem>
+                  <SelectItem value="engaged">engaged</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -178,11 +204,13 @@ const UpdateProfileForm = () => {
           selected={selectedHobbies}
           setSelected={setSelectedHobbies}
         />
-      </div>
-
-      <Button type="submit" className="w-full">
+        </div>
+        <Button disabled ={isPending} type="submit" className="w-full">
         Save Profile
       </Button>
+      </form>
+
+     
     </Form>
   );
 };

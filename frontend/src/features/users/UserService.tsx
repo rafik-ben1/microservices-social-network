@@ -1,8 +1,9 @@
 import { useFetchFunction } from "@/hooks/useFetch";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router-dom";
-import { User, UserProfile } from "./user.types";
+import { ProfileUpdateT, User, UserProfile } from "./user.types";
 import { useAuth } from "react-oidc-context";
+import { useToast } from "@/hooks/use-toast";
 
 export function useGetUsers() {
   const queryFn = useFetchFunction<User[]>();
@@ -36,4 +37,22 @@ export function useGetUser() {
     queryKey: ["user", id],
          queryFn: () => queryFn({url : "/users/"+id+"/profile"}) 
   });
+}
+
+export function useUpdateProfile(){
+  const queryClient = useQueryClient()
+  const mutationFn = useFetchFunction<UserProfile>()
+  const {toast} = useToast()
+  return useMutation({
+    mutationFn : (body : ProfileUpdateT) => mutationFn({url: "/users/profile" , method : "PATCH", body}),
+    onSuccess : (data) => {
+      console.log(data)
+      queryClient.invalidateQueries({queryKey : ["me"]})
+      toast({
+        title : "Success!",
+        description : "Profile has been succussfuly updated",
+        className : "bg-green-400"
+      })
+    }
+  })
 }

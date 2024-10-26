@@ -33,7 +33,7 @@ export function useFetchFunction<T>() {
     try {
       const json = await res.json();
       if (!res.ok) {
-        throw new Error(json.error || "An error occurred");
+        throw new Error( json.message || json.error || "An error occurred");
       }
       return json as T;
     } catch (err) {
