@@ -9,8 +9,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-
-
 import java.security.Principal;
 import java.util.List;
 
@@ -33,8 +31,10 @@ public class Security {
       });
       http.authorizeExchange(e -> {
           e
-                  .pathMatchers("/ws") // to do : cpnfigure websocket security
+                  .pathMatchers("/ws") // to do : configure websocket security
                   .permitAll()
+                  .pathMatchers("/uploads/**")
+                  .permitAll() 
                   .anyExchange()
                   .authenticated();
       });
