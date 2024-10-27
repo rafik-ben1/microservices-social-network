@@ -5,7 +5,7 @@ export type HttpMethods = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 interface FetchOptions {
   url: string;
   method?: HttpMethods;
-  isFormData : boolean
+  isFormData? : boolean
   body?: any;
 }
 
