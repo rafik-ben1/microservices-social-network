@@ -45,4 +45,17 @@ public class PostService {
         postRepository.deleteById(postId);
     }
 
+
+    public void updatePost(CreatePostDto dto, String userId, String image, int postId){
+        var post = postRepository.findById(postId)
+              .orElseThrow(()-> new NotFoundException("post not found"));
+
+              if(!userId.equals(post.getAuthor()) ){
+                throw new NotAuthorizedException("you are not allowed to perfurme this action");
+            }
+        post.setContent(dto.getContent());
+        post.setImage(image);
+        postRepository.save(post);
+    }
+
 }

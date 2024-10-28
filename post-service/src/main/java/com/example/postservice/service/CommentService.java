@@ -23,7 +23,7 @@ public class CommentService {
     private final CommentMapper mapper;
     private final UserClient userCLient;
     private final PostRepository postRepository;
-     private final EventPublisher publisher;
+    private final EventPublisher publisher;
 
     public CommentResponse createComment(CreateCommentDto dto, String authorId, int postId) {
         UserRep user = userCLient.findUserById(authorId);
@@ -35,7 +35,6 @@ public class CommentService {
         publisher.sendNewCommentEvent(commentAuthorUsername, post.getAuthor(), SavedComment.getContent());
         return mapper.mapFromEntityToResponse(SavedComment, user);
     }
-
 
     public Page<CommentResponse> getPostComments(int postId, Pageable pageable) {
         Page<Comment> commentList = this.commentRepository.findByPostId(postId, pageable);

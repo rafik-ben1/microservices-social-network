@@ -40,7 +40,7 @@ public class PostController {
       postService.deletePost(user, postId);
     }
 
-    @PatchMapping(consumes = "multipart/form-data")
+    @PatchMapping(consumes = "multipart/form-data",path = "/{postId}")
     public void updatePost(@RequestHeader("user") String user, @ModelAttribute @Valid CreatePostDto dto,
             @Nullable @RequestParam("image") MultipartFile image) {
         String imagePath = (image != null) ? storageService.save(user, image) : null;
