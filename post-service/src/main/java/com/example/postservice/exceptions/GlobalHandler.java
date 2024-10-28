@@ -1,5 +1,6 @@
 package com.example.postservice.exceptions;
 
+import jakarta.ws.rs.NotAuthorizedException;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +24,19 @@ public class GlobalHandler {
 
         @ExceptionHandler(NotFoundException.class)
         public ResponseEntity<ErrorResponse> handelNotFOund(NotFoundException ex) {
-                ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                ErrorResponse response = new ErrorResponse(HttpStatus.NOT_FOUND.getReasonPhrase(),
                                 ex.getMessage(), LocalDateTime.now());
                 return ResponseEntity
                                 .status(HttpStatus.NOT_FOUND.value())
+                                .body(response);
+        }
+
+        @ExceptionHandler(NotAuthorizedException.class)
+        public ResponseEntity<ErrorResponse> handelNotAuthorized(NotAuthorizedException ex) {
+                ErrorResponse response = new ErrorResponse(HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                                ex.getMessage(), LocalDateTime.now());
+                return ResponseEntity
+                                .status(HttpStatus.UNAUTHORIZED.value())
                                 .body(response);
         }
 }

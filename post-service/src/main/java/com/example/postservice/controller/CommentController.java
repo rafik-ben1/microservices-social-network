@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,16 +17,25 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    CommentResponse createPost(@PathVariable("postId") int postId, @RequestBody @Valid CreateCommentDto dto , @RequestHeader("user") String userId){
+    CommentResponse createPost(@PathVariable("postId") int postId, @RequestBody @Valid CreateCommentDto dto,
+            @RequestHeader("user") String userId) {
         return this.commentService.createComment(dto, userId, postId);
     }
+
     @GetMapping
-    Page<CommentResponse> getPostComments(@PathVariable("postId") int postId , Pageable pageable){
-        return this.commentService.getPostComments(postId,pageable);
+    Page<CommentResponse> getPostComments(@PathVariable("postId") int postId, Pageable pageable) {
+        return this.commentService.getPostComments(postId, pageable);
     }
 
     @DeleteMapping("/{commentId}")
-    void deleteComment(@PathVariable("commentId") int commentId , @RequestHeader("user") String user){
-        
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    void deleteComment(@PathVariable("commentId") int commentId, @RequestHeader("user") String user) {
+        commentService.deleteComment(commentId, user);
+    }
+
+    @PatchMapping("/{commentId}")
+    void updateComment(@PathVariable("commentId") int commentId, @RequestBody @Valid CreateCommentDto dto,
+            @RequestHeader("user") String user) {
+
     }
 }

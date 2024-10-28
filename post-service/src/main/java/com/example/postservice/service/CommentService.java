@@ -10,13 +10,13 @@ import com.example.postservice.models.Comment;
 import com.example.postservice.models.Post;
 import com.example.postservice.repository.CommentRepository;
 import com.example.postservice.repository.PostRepository;
-
 import jakarta.ws.rs.NotAuthorizedException;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +56,17 @@ public class CommentService {
         }
 
         commentRepository.deleteById(commentId);
+    }
+
+    public void updateComment( int commentId ,CreateCommentDto dto ,String user){
+        var comment = commentRepository.findById(commentId)
+              .orElseThrow(() -> new NotFoundException("post not found"));
+
+        if (!comment.getAuthor().equals(user)) {
+            throw new NotAuthorizedException("you are not allowed to perform this action !");
+        }
+
+        comment.setContent(dto.getContent());
+        commentRepository.save(comment);
     }
 }
