@@ -6,6 +6,10 @@ import com.example.postservice.mapper.PostMapper;
 import com.example.postservice.models.Post;
 import com.example.postservice.repository.LikeRepository;
 import com.example.postservice.repository.PostRepository;
+
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.NotAuthorizedException;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +34,15 @@ public class PostService {
         int likes = likeRepository.countByPostId(post.getId());
         return mapper.mapToResponse(post, likes);
       });
+    }
+
+    public void deletePost(String user , int postId){
+        var post = postRepository.findById(postId)
+              .orElseThrow(()-> new NotFoundException("post not found"));
+        if(!user.equals(post.getAuthor()) ){
+            throw new NotAuthorizedException("you are not allowed to perfurme this action");
+        }
+        postRepository.deleteById(postId);
     }
 
 }

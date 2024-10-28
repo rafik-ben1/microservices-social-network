@@ -28,8 +28,15 @@ public class PostController {
         postService.createPost(dto, user, imagePath);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/{userId}")
     public Page<PostResponse> getUserPosts(@PathVariable("userId") String userId, Pageable pageable) {
         return postService.findUserPosts(userId, pageable);
+    }
+
+
+    @DeleteMapping("/{postId}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deletePost(@RequestHeader("user") String user, @PathVariable("postId") int postId  ){
+
     }
 }
