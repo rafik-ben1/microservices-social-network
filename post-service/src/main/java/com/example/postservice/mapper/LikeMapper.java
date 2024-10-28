@@ -1,16 +1,13 @@
 package com.example.postservice.mapper;
 
 import com.example.postservice.HttpClient.user.UserRep;
-import com.example.postservice.dto.LikeResponse;
+import com.example.postservice.dto.response.LikeResponse;
 import com.example.postservice.models.Likes;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class LikeMapper {
     public LikeResponse mapToLikeResponse(Likes like, UserRep user){
-        return LikeResponse.builder()
-                           .id(like.getId())
-                           .author(user)
-                           .build();
+      return new LikeResponse(like.getId(), user);
     }
 }

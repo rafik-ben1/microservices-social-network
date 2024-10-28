@@ -2,15 +2,12 @@ package com.example.postservice.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -19,7 +16,6 @@ public class StorageService {
 
     public String save(String user , MultipartFile file){
         Path uploads = Paths.get(uploadPath);
-        String fileUrl = null;
         String fileName =user + LocalDateTime.now().getSecond() + file.getOriginalFilename() ;
         try {
             if(!Files.exists(uploads)) {

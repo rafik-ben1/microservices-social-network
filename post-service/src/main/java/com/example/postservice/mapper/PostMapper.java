@@ -1,15 +1,26 @@
 package com.example.postservice.mapper;
 
-import com.example.postservice.dto.CreatePostDto;
+import com.example.postservice.dto.request.CreatePostDto;
+import com.example.postservice.dto.response.PostResponse;
 import com.example.postservice.models.Post;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class PostMapper {
-    public Post mapToPost(CreatePostDto dto,String author){
+
+    public Post mapToPost(CreatePostDto dto, String author) {
         return Post.builder()
                 .content(dto.getContent())
                 .author(author)
                 .build();
+    }
+
+    public PostResponse mapToResponse(Post post, int likedBy) {
+        return new PostResponse(post.getId(),
+                post.getContent(), post.getImage(),
+                post.getAuthor(),
+                likedBy,
+                post.getCreatedAt(),
+                post.getUpdatedAt());
     }
 }

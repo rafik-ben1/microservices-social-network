@@ -28,8 +28,6 @@ public class Post {
 
     private String author;
 
-    private int likedBy;
-
     @CreatedDate
     private LocalDateTime createdAt;
 

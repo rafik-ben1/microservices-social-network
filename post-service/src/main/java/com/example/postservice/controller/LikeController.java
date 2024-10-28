@@ -1,6 +1,6 @@
 package com.example.postservice.controller;
 
-import com.example.postservice.dto.LikeResponse;
+import com.example.postservice.dto.response.LikeResponse;
 import com.example.postservice.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

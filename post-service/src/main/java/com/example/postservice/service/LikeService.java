@@ -1,8 +1,7 @@
 package com.example.postservice.service;
 import com.example.postservice.HttpClient.user.UserClient;
 import com.example.postservice.HttpClient.user.UserRep;
-import com.example.postservice.dto.CommentResponseDto;
-import com.example.postservice.dto.LikeResponse;
+import com.example.postservice.dto.response.LikeResponse;
 import com.example.postservice.mapper.LikeMapper;
 import com.example.postservice.models.Likes;
 import com.example.postservice.models.Post;
@@ -23,6 +22,7 @@ public class LikeService {
     private final PostRepository postRepository;
     private final UserClient userClient;
     private final LikeMapper mapper;
+
     public void likePost(int postId , String userId){
         Post post = postRepository.findById(postId).orElseThrow(()-> new NotFoundException("post not found"));
         Optional<Likes> possiblyLiked = likeRepository.findByAuthorAndPostId(userId,postId);
@@ -32,11 +32,9 @@ public class LikeService {
                     .post(post)
                     .build();
             likeRepository.save(like);
-            post.setLikedBy(post.getLikedBy() + 1);
             return;
         }
         likeRepository.deleteById(possiblyLiked.get().getId());
-        post.setLikedBy(post.getLikedBy() - 1);
     }
 
     public Page<LikeResponse> getPostLikes(int postId, Pageable pageable){

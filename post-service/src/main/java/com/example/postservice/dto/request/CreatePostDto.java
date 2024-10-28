@@ -1,4 +1,4 @@
-package com.example.postservice.dto;
+package com.example.postservice.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

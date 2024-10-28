@@ -1,9 +1,7 @@
 package com.example.postservice.controller;
 
-import com.example.postservice.dto.CommentResponseDto;
-import com.example.postservice.dto.CreateCommentDto;
-import com.example.postservice.models.Comment;
-import com.example.postservice.models.Post;
+import com.example.postservice.dto.request.CreateCommentDto;
+import com.example.postservice.dto.response.CommentResponse;
 import com.example.postservice.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +16,11 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    CommentResponseDto createPost(@PathVariable("postId") int postId, @RequestBody @Valid CreateCommentDto dto , @RequestHeader("user") String userId){
+    CommentResponse createPost(@PathVariable("postId") int postId, @RequestBody @Valid CreateCommentDto dto , @RequestHeader("user") String userId){
         return this.commentService.createComment(dto, userId, postId);
     }
     @GetMapping
-    Page<CommentResponseDto> getPostComments(@PathVariable("postId") int postId , Pageable pageable){
+    Page<CommentResponse> getPostComments(@PathVariable("postId") int postId , Pageable pageable){
         return this.commentService.getPostComments(postId,pageable);
     }
 }
