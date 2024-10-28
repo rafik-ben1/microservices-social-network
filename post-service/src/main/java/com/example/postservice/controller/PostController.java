@@ -37,6 +37,13 @@ public class PostController {
     @DeleteMapping("/{postId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deletePost(@RequestHeader("user") String user, @PathVariable("postId") int postId  ){
+      postService.deletePost(user, postId);
+    }
 
+    @PatchMapping(consumes = "multipart/form-data")
+    public void updatePost(@RequestHeader("user") String user, @ModelAttribute @Valid CreatePostDto dto,
+            @Nullable @RequestParam("image") MultipartFile image) {
+        String imagePath = (image != null) ? storageService.save(user, image) : null;
+        postService.createPost(dto, user, imagePath);
     }
 }
