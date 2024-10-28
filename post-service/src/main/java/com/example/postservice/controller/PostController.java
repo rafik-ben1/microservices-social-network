@@ -2,7 +2,6 @@ package com.example.postservice.controller;
 
 import com.example.postservice.dto.request.CreatePostDto;
 import com.example.postservice.dto.response.PostResponse;
-import com.example.postservice.models.Post;
 import com.example.postservice.service.PostService;
 import com.example.postservice.service.StorageService;
 import jakarta.validation.Valid;

@@ -1,13 +1,13 @@
 package com.example.postservice.exceptions;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public record ErrorResponse(
-        Instant TimeStamp,
-        org.springframework.http.HttpStatus Status,
-        int StatusCode,
-        String message
-
+    String error,
+    String message,
+    LocalDateTime timestamp
 ) {
+    
 }
+
 
