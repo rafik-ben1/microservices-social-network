@@ -33,17 +33,17 @@ public class PostController {
         return postService.findUserPosts(userId, pageable);
     }
 
-
     @DeleteMapping("/{postId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deletePost(@RequestHeader("user") String user, @PathVariable("postId") int postId  ){
-      postService.deletePost(user, postId);
+    public void deletePost(@RequestHeader("user") String user, @PathVariable("postId") int postId) {
+        postService.deletePost(user, postId);
     }
 
-    @PatchMapping(consumes = "multipart/form-data",path = "/{postId}")
+    @PatchMapping(consumes = "multipart/form-data", path = "/{postId}")
     public void updatePost(@RequestHeader("user") String user, @ModelAttribute @Valid CreatePostDto dto,
-            @Nullable @RequestParam("image") MultipartFile image) {
+            @Nullable @RequestParam("image") MultipartFile image,
+            @PathVariable("postId") int postId) {
         String imagePath = (image != null) ? storageService.save(user, image) : null;
-        postService.createPost(dto, user, imagePath);
+        postService.updatePost(dto, user, imagePath, postId);
     }
 }

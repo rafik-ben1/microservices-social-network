@@ -10,6 +10,8 @@ import com.example.postservice.models.Comment;
 import com.example.postservice.models.Post;
 import com.example.postservice.repository.CommentRepository;
 import com.example.postservice.repository.PostRepository;
+
+import jakarta.ws.rs.NotAuthorizedException;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,5 +45,16 @@ public class CommentService {
             UserRep author = this.userCLient.findUserById(comment.getAuthor());
             return this.mapper.mapFromEntityToResponse(comment, author);
         });
+    }
+
+    public void deleteComment(int commentId , String user){
+        var comment = commentRepository.findById(commentId)
+              .orElseThrow(() -> new NotFoundException("post not found"));
+
+        if (!comment.getAuthor().equals(user)) {
+            throw new NotAuthorizedException("you are not allowed to perform this action !");
+        }
+
+        commentRepository.deleteById(commentId);
     }
 }

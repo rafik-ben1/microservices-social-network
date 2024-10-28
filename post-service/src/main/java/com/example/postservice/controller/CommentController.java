@@ -23,4 +23,9 @@ public class CommentController {
     Page<CommentResponse> getPostComments(@PathVariable("postId") int postId , Pageable pageable){
         return this.commentService.getPostComments(postId,pageable);
     }
+
+    @DeleteMapping("/{commentId}")
+    void deleteComment(@PathVariable("commentId") int commentId , @RequestHeader("user") String user){
+        
+    }
 }
