@@ -30,8 +30,8 @@ export default function ProfileAvatar({
 
   return (
     <div className="relative inline-block">
-      <Avatar className="h-24 w-24 relative">
-        <AvatarImage src={BASE_URL + avatar} alt={`${username}}'s avatar`} />
+      <Avatar className="h-20 w-20 md:h-24 md:w-24 relative">
+        <AvatarImage className=" object-cover" src={BASE_URL + avatar} alt={`${username}}'s avatar`} />
         <AvatarFallback>{username.charAt(0).toUpperCase()}</AvatarFallback>
       </Avatar>
       <Button

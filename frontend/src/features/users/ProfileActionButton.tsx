@@ -21,7 +21,7 @@ export default function ProfileActionButton(){
  
  switch (data?.status) {
   case "self":
-    return <Button onClick={()=>navigate("/update")} className="flex items-center gap-2"> <Edit className="text-sm" /> Edit profile </Button>
+    return <Button onClick={()=>navigate("/update")} className="flex text-xs md:text-base items-center gap-2"> <Edit className=" text-xs md:text-sm" /> Edit profile </Button>
   case "friends":
     return <UnfriendDialog />
   case "requestSent":
