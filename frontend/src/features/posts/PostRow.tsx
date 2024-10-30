@@ -2,8 +2,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { useGetUser } from "../users/UserService";
 import { Button } from "@/components/ui/button";
-import { Heart, MessageSquareText } from "lucide-react";
+import { Heart, MessageCircleMore } from "lucide-react";
 import { BASE_URL } from "@/common/constants";
+import { Comments } from "../comments/Comments";
 
 const PostRow = ({ post }) => {
   const { data } = useGetUser();
@@ -12,7 +13,10 @@ const PostRow = ({ post }) => {
     <div className="w-full border-none  ">
       <CardTitle className="flex items-center p-4">
         <Avatar className="h-12 w-12">
-          <AvatarImage className=" object-cover" src={BASE_URL + data?.avatar} />
+          <AvatarImage
+            className=" object-cover"
+            src={BASE_URL + data?.avatar}
+          />
           <AvatarFallback>
             {data?.username.charAt(0).toUpperCase()}
           </AvatarFallback>
@@ -27,11 +31,13 @@ const PostRow = ({ post }) => {
       <CardContent> {post.content} </CardContent>
       <CardFooter className="flex items-center gap-2">
         <Button size="icon" variant="ghost">
-          <Heart className="hover:text-red-400 hover:fill-red-400 " />
+          <Heart className="hover:text-red-500 hover:fill-red-500 " />
         </Button>
-        <Button size="icon" variant="ghost">
-          <MessageSquareText  />
-        </Button>
+        <Comments>
+          <Button size="icon" variant="ghost">
+            <MessageCircleMore />
+          </Button>
+        </Comments>
       </CardFooter>
     </div>
   );
