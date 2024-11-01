@@ -51,7 +51,7 @@ export function useUpdateProfile() {
       toast({
         title: "Success!",
         description: "Profile has been succussfuly updated",
-        className: "bg-green-400 text-white",
+        className: "bg-green-500 text-white",
       });
     },
   });
@@ -73,7 +73,7 @@ export function useUpdateAvatar() {
       toast({
         title: "Success!",
         description: "Avatar has been succussfuly updated",
-        className: "bg-green-400 text-white ",
+        className: "bg-green-500 text-white ",
       });
       queryClient.invalidateQueries({ queryKey: ["me"] });
     },

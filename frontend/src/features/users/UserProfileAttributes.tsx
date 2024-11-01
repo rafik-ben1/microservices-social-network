@@ -37,7 +37,7 @@ export const UserProfileAttributes = ({user} :{user : UserProfile}) => {
    {user.hobbies?.length && <div className="grid gap-2">
       <h3 className="font-semibold">Hobbies</h3>
       <div className="flex flex-wrap gap-2">
-        {user.hobbies.map(hobbie => <Badge variant="secondary">{hobbie}</Badge>)}
+        {user.hobbies.map(hobbie => <Badge key={hobbie} variant="secondary">{hobbie}</Badge>)}
       </div>
     </div>}
   </CardContent>

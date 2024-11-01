@@ -1,7 +1,7 @@
 export interface Post {
     id : number;
     content : string;
-    image : string;
+    image? : string;
     likedBy : number;
     author : string;
     createdAt : string;

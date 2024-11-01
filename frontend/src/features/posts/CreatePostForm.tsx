@@ -3,13 +3,15 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { ImageIcon, SendIcon, X } from 'lucide-react'
+import { useCreatePost } from './PostService'
+import { Post } from './post.types'
 
-export default function CreatePostForm() {
-  const [content, setContent] = useState('')
+export default function CreatePostForm({post} : {post? : Post} ) {
+  const [content, setContent] = useState(post?.content ?? "")
   const ref = useRef<HTMLInputElement>(null)
-  const [image, setImage] = useState<File | null>(null)
-  const [imagePreview, setImagePreview] = useState<string | null>(null)
-
+  const [image, setImage] = useState<File | string | null>(post?.image ?? null)
+  const [imagePreview, setImagePreview] = useState<string | null>(post?.image ?? null)
+  const {mutate, isPending} = useCreatePost()
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
@@ -24,7 +26,11 @@ export default function CreatePostForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('Submitting:', { content, image })
+    const data = new FormData()
+    data.append("Content",content)
+    if(image)
+      data.append("image",image)
+    mutate(data)
     setContent('')
     setImage(null)
     setImagePreview(null)
@@ -74,7 +80,7 @@ export default function CreatePostForm() {
               </Button>
             </label>
           </div>
-          <Button type="submit" className="px-6">
+          <Button disabled={isPending ||  (content === null && image === null) } type="submit" className="px-6">
             <SendIcon className="h-4 w-4 mr-2" />
             Post
           </Button>

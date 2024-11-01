@@ -4,3 +4,5 @@ export function getAge(bornAt: string): number {
     const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
     return Math.floor(diffInYears);
 }
+
+
