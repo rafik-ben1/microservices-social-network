@@ -29,8 +29,9 @@ public class PostController {
     }
 
     @GetMapping("/{userId}")
-    public Page<PostResponse> getUserPosts(@PathVariable("userId") String userId, Pageable pageable) {
-        return postService.findUserPosts(userId, pageable);
+    public Page<PostResponse> getUserPosts(@PathVariable("userId") String userId, Pageable pageable,
+            @RequestHeader("user") String user) {
+        return postService.findUserPosts(userId, pageable,user);
     }
 
     @DeleteMapping("/{postId}")

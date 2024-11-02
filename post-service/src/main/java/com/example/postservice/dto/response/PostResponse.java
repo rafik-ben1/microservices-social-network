@@ -13,6 +13,8 @@ public record PostResponse(
         String author,
 
         int likedBy,
+        
+        boolean isLiked,
 
         LocalDateTime createdAt,
 

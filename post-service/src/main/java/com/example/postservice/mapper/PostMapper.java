@@ -15,11 +15,12 @@ public class PostMapper {
                 .build();
     }
 
-    public PostResponse mapToResponse(Post post, int likedBy) {
+    public PostResponse mapToResponse(Post post, int likedBy,boolean isLiked) {
         return new PostResponse(post.getId(),
                 post.getContent(), post.getImage(),
                 post.getAuthor(),
                 likedBy,
+                isLiked,
                 post.getCreatedAt(),
                 post.getUpdatedAt());
     }

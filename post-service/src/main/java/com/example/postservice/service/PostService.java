@@ -28,11 +28,12 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public Page<PostResponse> findUserPosts(String userId, Pageable pageable) {
+    public Page<PostResponse> findUserPosts(String userId, Pageable pageable,String currentUser) {
         Page<Post> posts = postRepository.findByAuthor(userId, pageable);
         return posts.map(post -> {
             int likes = likeRepository.countByPostId(post.getId());
-            return mapper.mapToResponse(post, likes);
+            var isLiked = likeRepository.findByAuthorAndPostId(currentUser, post.getId()).isPresent();
+            return mapper.mapToResponse(post, likes,isLiked);
         });
     }
 
