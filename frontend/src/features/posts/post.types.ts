@@ -4,6 +4,7 @@ export interface Post {
     image? : string;
     likedBy : number;
     author : string;
+    isLiked : boolean;
     createdAt : string;
     updatedAt: string;
 }

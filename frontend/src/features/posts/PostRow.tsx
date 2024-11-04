@@ -4,13 +4,15 @@ import { useGetUser } from "../users/UserService";
 import { Button } from "@/components/ui/button";
 import { Dot, Heart, MessageCircleMore, Settings } from "lucide-react";
 import { BASE_URL } from "@/common/constants";
-import { Comments } from "../comments/Comments";
+import { CommentModal } from "../comments/CommentModal";
 import { Post } from "./post.types";
 import { formatDistanceToNow, parseJSON } from "date-fns";
 import PostMenu from "./PostMenu";
+import { useSearchParams } from "react-router-dom";
 
 const PostRow = ({ post }: { post: Post }) => {
   const { data } = useGetUser();
+  const [searchParams,setSeachParams] = useSearchParams()
 
   return (
     <div className="w-full border-none   ">
@@ -42,14 +44,17 @@ const PostRow = ({ post }: { post: Post }) => {
       { post.image  && <img className=" max-h-80" src={BASE_URL+post.image} alt="post image"  />}  
        </CardContent>
       <CardFooter className="flex items-center gap-2 border-b border-stone-200  ">
-        <Button size="icon" variant="ghost">
+        <span className="flex items-center gap-1" >
+        <Button size="icon" variant="ghost"  >
           <Heart className="hover:text-red-500 hover:fill-red-500 " />
         </Button>
-        <Comments>
-          <Button size="icon" variant="ghost">
+        <p>{post.likedBy +" "} likes</p>
+        </span>
+        <CommentModal>
+          <Button onClick={()=>setSeachParams({post:String(post.id)})} size="icon" variant="ghost">
             <MessageCircleMore />
           </Button>
-        </Comments>
+        </CommentModal>
       </CardFooter>
     </div>
   );
