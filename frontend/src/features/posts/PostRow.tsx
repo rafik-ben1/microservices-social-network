@@ -9,11 +9,13 @@ import { Post } from "./post.types";
 import { formatDistanceToNow, parseJSON } from "date-fns";
 import PostMenu from "./PostMenu";
 import { useSearchParams } from "react-router-dom";
+import { useLikePost } from "./PostService";
+import {cn} from "@/lib/utils"
 
 const PostRow = ({ post }: { post: Post }) => {
   const { data } = useGetUser();
-  const [searchParams,setSeachParams] = useSearchParams()
-
+  const [_,setSeachParams] = useSearchParams()
+   const {mutate} = useLikePost()
   return (
     <div className="w-full border-none   ">
       <CardTitle className="flex items-center p-4">
@@ -45,8 +47,8 @@ const PostRow = ({ post }: { post: Post }) => {
        </CardContent>
       <CardFooter className="flex items-center gap-2 border-b border-stone-200  ">
         <span className="flex items-center gap-1" >
-        <Button size="icon" variant="ghost"  >
-          <Heart className="hover:text-red-500 hover:fill-red-500 " />
+        <Button onClick={()=> mutate(post.id) } size="icon" variant="ghost"  >
+          <Heart className={cn("hover:text-red-500 hover:fill-red-500 ",post.isLiked && "fill-red-500 text-red-500")} />
         </Button>
         <p>{post.likedBy +" "} likes</p>
         </span>

@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const CommentSkeleton = () => {
     return (
-      <div className="w-full" >
+      <div className="w-full h-[80%] " >
       {Array.from({ length: 2 }).map((_, i) => (
         <div key={i} className="flex flex-col w-full gap-2 mt-1">
           <div className="flex items-center gap-1">
