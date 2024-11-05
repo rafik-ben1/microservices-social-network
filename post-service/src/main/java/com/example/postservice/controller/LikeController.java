@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class LikeController {
     private final LikeService likeService;
+
     @PostMapping
     ResponseEntity<?> likePost(@PathVariable("postId") int postId, @RequestHeader("user") String userId ){
         likeService.likePost(postId, userId);
         return ResponseEntity.accepted().build();
     }
-
+     
+    @GetMapping
     Page<LikeResponse> getPostLikes(@PathVariable("postId") int postId, Pageable pageable){
         return likeService.getPostLikes(postId,pageable);
     }
