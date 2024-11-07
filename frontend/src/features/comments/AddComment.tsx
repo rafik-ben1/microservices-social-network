@@ -14,7 +14,7 @@ const AddComment = () => {
     setContent("");
   }
   return (
-    <form onSubmit={handelSubmit} className="sticky bottom-0 w-full flex items-center gap-2  ">
+    <form onSubmit={handelSubmit} className=" w-full flex items-center gap-2  ">
       <Input
         disabled={isPending}
         value={content}
