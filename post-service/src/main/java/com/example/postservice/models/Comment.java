@@ -26,7 +26,7 @@ public class Comment {
 
     private String author;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
     @CreatedDate
