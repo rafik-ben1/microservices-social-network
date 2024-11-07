@@ -8,9 +8,11 @@ import {
 import { Ellipsis, Trash2, Bookmark, Pencil } from "lucide-react";
 import { Post } from "./post.types";
 import { useAuth } from "react-oidc-context";
+import { useDeletePost } from "./PostService";
 
 const PostMenu = ({ post }: { post: Post }) => {
   const id = useAuth().user?.profile.sub;
+  const {mutate} = useDeletePost()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,7 +29,7 @@ const PostMenu = ({ post }: { post: Post }) => {
             <DropdownMenuItem className="flex items-center gap-2">
               <Pencil /> Edit
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex items-center gap-2">
+            <DropdownMenuItem onClick={()=> mutate(post.id)} className="flex items-center gap-2">
               <Trash2 /> Delete
             </DropdownMenuItem>
           </>

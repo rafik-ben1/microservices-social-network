@@ -1,3 +1,5 @@
+import { User } from "../users/user.types";
+
 export interface Post {
     id : number;
     content : string;
@@ -7,4 +9,9 @@ export interface Post {
     isLiked : boolean;
     createdAt : string;
     updatedAt: string;
+}
+
+export interface PostLike {
+    id : number;
+    author : User;
 }

@@ -2,7 +2,7 @@ import { Page } from "@/common/types";
 import { useFetchFunction } from "@/hooks/useFetch";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { Post } from "./post.types";
+import { Post, PostLike } from "./post.types";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "react-oidc-context";
 
@@ -50,7 +50,9 @@ export function useLikePost() {
           ...previousPosts,
           content: previousPosts.content.map((post) => {
             if (post.id === postId) {
-              const updatedLikedBy = post.isLiked ? post.likedBy - 1 : post.likedBy + 1;
+              const updatedLikedBy = post.isLiked
+                ? post.likedBy - 1
+                : post.likedBy + 1;
               return {
                 ...post,
                 isLiked: !post.isLiked,
@@ -66,7 +68,7 @@ export function useLikePost() {
 
       return { previousPosts };
     },
-    onError: (error, postId, context) => {
+    onError: (_error, _postId, context) => {
       if (context?.previousPosts) {
         queryClient.setQueryData(["posts", id], context.previousPosts);
       }
@@ -77,3 +79,25 @@ export function useLikePost() {
   });
 }
 
+export function useDeletePost() {
+  const mutationFn = useFetchFunction();
+  const queryClient = useQueryClient();
+  const { id } = useParams();
+
+  return useMutation({
+    mutationFn: (postId: number) =>
+      mutationFn({ url: "/posts/" + postId, method: "DELETE" }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts", id] });
+    },
+  });
+}
+
+export function useGetPostLikers(postId: number) {
+  const queryFn = useFetchFunction<Page<PostLike>>();
+
+  return useQuery({
+    queryKey: ["likes", postId],
+    queryFn: () => queryFn({ url: "/posts/" + postId + "/likes" }),
+  });
+}
